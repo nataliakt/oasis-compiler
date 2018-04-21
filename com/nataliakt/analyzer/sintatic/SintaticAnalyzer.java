@@ -1,12 +1,12 @@
-package com.nataliakt.sintaticanalyzer;
+package com.nataliakt.analyzer.sintatic;
 
 import java.util.List;
 
-import com.nataliakt.lexicalanalyzer.LexicalAnalyzer;
-import com.nataliakt.lexicalanalyzer.model.Token;
-import com.nataliakt.sintaticanalyzer.model.Action;
-import com.nataliakt.sintaticanalyzer.model.Stack;
-import com.nataliakt.sintaticanalyzer.model.States;
+import com.nataliakt.analyzer.lexical.LexicalAnalyzer;
+import com.nataliakt.analyzer.lexical.model.Token;
+import com.nataliakt.analyzer.sintatic.model.Action;
+import com.nataliakt.analyzer.sintatic.model.Stack;
+import com.nataliakt.analyzer.sintatic.model.States;
 
 /**
  * Analizador Sintático

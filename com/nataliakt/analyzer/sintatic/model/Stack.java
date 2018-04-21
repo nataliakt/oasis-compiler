@@ -1,4 +1,4 @@
-package com.nataliakt.sintaticanalyzer.model;
+package com.nataliakt.analyzer.sintatic.model;
 
 import java.util.ArrayList;
 import java.util.List;

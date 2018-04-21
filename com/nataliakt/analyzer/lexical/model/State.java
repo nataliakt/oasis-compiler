@@ -1,4 +1,4 @@
-package com.nataliakt.lexicalanalyzer.model;
+package com.nataliakt.analyzer.lexical.model;
 
 import java.util.HashMap;
 

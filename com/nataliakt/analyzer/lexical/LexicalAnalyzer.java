@@ -1,10 +1,10 @@
-package com.nataliakt.lexicalanalyzer;
+package com.nataliakt.analyzer.lexical;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nataliakt.lexicalanalyzer.model.State;
-import com.nataliakt.lexicalanalyzer.model.Token;
+import com.nataliakt.analyzer.lexical.model.State;
+import com.nataliakt.analyzer.lexical.model.Token;
 
 /**
  * Analizador léxico
