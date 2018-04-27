@@ -18,8 +18,7 @@ import static com.nataliakt.analyzer.oasis.OasisSintaticConstants.*;
 public class OasisSintatic extends SintaticAnalyzer {
 
     private static Map<Integer, Actions> s = new HashMap<>();
-    private static Map<Integer, Integer[]> g = new HashMap<>();
-    private static States states = new States(s, g);
+    private static States states = new States(s, PRODUCTIONS);
 
     public OasisSintatic() {
         super(states, new OasisLexical());
@@ -35,7 +34,7 @@ public class OasisSintatic extends SintaticAnalyzer {
             s.put(i, new Actions(acs));
 
             for (int t = 0; t < stateLine.length; t++) {
-                if (stateLine.length == 2) {
+                if (stateLine[t].length == 2) {
                     switch (stateLine[t][0]) {
                         case SHIFT:
                             acs.put(TOKEN[t + 1], new Action(ActionEnum.SHIFT, stateLine[t][1]));
@@ -47,7 +46,7 @@ public class OasisSintatic extends SintaticAnalyzer {
                             acs.put(TOKEN[t + 1], new Action(ActionEnum.REDUCE, stateLine[t][1]));
                             break;
                         case GO_TO:
-                            g.put(stateLine[t][1], {})
+                            acs.put("TOKEN_" + t, new Action(ActionEnum.GO_TO, stateLine[t][1]));
                             break;
                     }
                 }

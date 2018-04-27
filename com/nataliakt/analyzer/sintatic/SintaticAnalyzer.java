@@ -48,12 +48,12 @@ public abstract class SintaticAnalyzer
 				
 				if (tokens.size() != t) {
 					Token token = tokens.get(t);
-					if (token.getName().equals("ESPACO")) {
+					if (token.getName().equals("EPSILON")) {
 						continue;
 					}
 					action = states.getAction(stack.getState(), token.getName());
 				} else {
-					action = states.getAction(stack.getState(), "$");
+					action = states.getAction(stack.getState(), "DOLLAR");
 				}
 				System.out.println(action);
 				
@@ -62,16 +62,23 @@ public abstract class SintaticAnalyzer
 					stack.shift(action.getValue());
 					System.out.println(stack);
 					break;
-					
+
 				case REDUCE:
-					stack.reduce(action.getValue());
-					Integer goTo = states.getGoTo().get(stack.getState());
+					int[] prod = states.getGoTo()[action.getValue()];
+
+					stack.reduce(prod[1]);
+					String token = "TOKEN_" + (prod[0] - 1);
+					int goTo = states.getStates().get(stack.getState())
+							.getActions().get(token).getValue();
 					stack.shift(goTo);
-					System.out.println(stack);
+
 					System.out.print("Desvio: " + goTo + " ");
-					if (t < tokens.size() - 1) {
-						t--;
-					}
+					System.out.println(stack);
+
+//                    if (t < tokens.size() - 1) {
+                        t--;
+//                    }
+
 					break;
 					
 				case ACC:

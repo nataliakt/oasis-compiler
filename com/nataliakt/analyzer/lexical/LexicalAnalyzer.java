@@ -60,6 +60,7 @@ public abstract class LexicalAnalyzer
 		}
 
 		tokens.add(new Token(current.getToken(), value));
+		tokens.removeIf(token -> token.getName() == "EPSILON");
 
 		return tokens;
 	}

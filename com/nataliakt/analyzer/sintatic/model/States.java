@@ -6,9 +6,9 @@ public class States
 {
 
 	private Map<Integer, Actions> states;
-	private Map<Integer, Integer[]> goTo; // <state, <'token', prodLine>
+	private int[][] goTo; // <state, <'token', prodLine>
 
-	public States(Map<Integer, Actions> states, Map<Integer, Integer[]> goTo)
+	public States(Map<Integer, Actions> states, int[][] goTo)
 	{
 		super();
 		this.states = states;
@@ -31,12 +31,12 @@ public class States
 		this.states = states;
 	}
 
-	public Map<Integer, Integer[]> getGoTo()
+	public int[][] getGoTo()
 	{
 		return goTo;
 	}
 
-	public void setGoTo(Map<Integer, Integer[]> goTo)
+	public void setGoTo(int[][] goTo)
 	{
 		this.goTo = goTo;
 	}

@@ -41,7 +41,7 @@ public class Action {
 
 	public enum ActionEnum {
 
-		SHIFT("Empilhar"), REDUCE("Reduzir"), ACC("Aceitar");
+		SHIFT("Empilhar"), REDUCE("Reduzir"), ACC("Aceitar"), GO_TO("Ir para");
 
 		private String description;
 		
