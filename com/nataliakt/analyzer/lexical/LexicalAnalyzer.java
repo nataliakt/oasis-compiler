@@ -1,10 +1,14 @@
 package com.nataliakt.analyzer.lexical;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import com.nataliakt.analyzer.lexical.model.State;
 import com.nataliakt.analyzer.lexical.model.Token;
+
+import static com.nataliakt.analyzer.oasis.OasisLexicalConstants.SPECIAL_CASES_KEYS;
 
 /**
  * Analizador léxico
@@ -16,11 +20,13 @@ public abstract class LexicalAnalyzer
 {
 
 	private State initial;
+	private Map<String, String> specialCases;
 
-	public LexicalAnalyzer(State initial)
+	public LexicalAnalyzer(State initial, Map<String, String> specialCases)
 	{
 		super();
 		this.initial = initial;
+		this.specialCases = specialCases;
 	}
 
 	/**
@@ -61,6 +67,13 @@ public abstract class LexicalAnalyzer
 
 		tokens.add(new Token(current.getToken(), value));
 		tokens.removeIf(token -> token.getName() == "EPSILON");
+
+		for(Token token : tokens) {
+            String newToken = specialCases.get(token.getValue());
+            if (newToken != null) {
+                token.setName(newToken);
+            }
+		}
 
 		return tokens;
 	}

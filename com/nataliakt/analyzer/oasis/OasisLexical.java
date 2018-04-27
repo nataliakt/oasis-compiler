@@ -16,9 +16,10 @@ public class OasisLexical extends LexicalAnalyzer {
 
     // Estado Inicial
     private static State q0 = new State("q0", TOKEN[TOKEN_STATE[0]]);
+    private static Map<String, String> specialCases = new HashMap<>();
 
     public OasisLexical() {
-        super(q0);
+        super(q0, specialCases);
 
         autoImport();
     }
@@ -27,13 +28,19 @@ public class OasisLexical extends LexicalAnalyzer {
      * Importa os estados do código gerado pelo gals
      */
     private void autoImport() {
+        for (int i = 0; i < SPECIAL_CASES_KEYS.length; i++) {
+            specialCases.put(SPECIAL_CASES_KEYS[i], TOKEN[SPECIAL_CASES_VALUES[i]]);
+        }
+
         for (int[] chars : SCANNER_TABLE) {
             int q = states.size();
             State state;
             if (q == 0) {
                 state = q0;
             } else {
-                state = new State("q" + q, TOKEN[TOKEN_STATE[q]]);
+                String token = TOKEN[TOKEN_STATE[q]];
+                String tokens = Arrays.stream(SPECIAL_CASES_KEYS).filter(t -> t.equals(token)).toString();
+                state = new State("q" + q, token);
             }
             states.add(state);
         }

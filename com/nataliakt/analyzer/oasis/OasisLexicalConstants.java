@@ -95,6 +95,13 @@ public interface OasisLexicalConstants {
 
     public static int[] TOKEN_STATE = { 0,  0,  8, 36, 0, 0, 0, 31, 32,  9,  9, 37,  9,  5, 40, 33, 10, 29, 10,  2, 41,  3, 27, 28, 10,  7, 0, 34, 0,  4, 35,  6, 30, 0,  0 };
 
-//    public static int[] TOKEN_STATE = { 0,  0,  8, 36, -1, -2, -1, 31, 32,  9,  9, 37,  9,  5, 40, 33, 10, 29, 10,  2, 41,  3, 27, 28, 10,  7, -2, 34, -1,  4, 35,  6, 30, -2,  0 };
+    public static int[] SPECIAL_CASES_INDEXES =
+            { 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16 };
+
+    public static String[] SPECIAL_CASES_KEYS =
+            {  "bit", "decimal", "e", "else", "false", "for", "if", "integer", "main", "or", "read", "run", "string", "true", "while", "write" };
+
+    public static int[] SPECIAL_CASES_VALUES =
+            {  19, 18, 26, 14, 22, 15, 13, 17, 23, 25, 12, 24, 20, 21, 16, 11 };
 
 }

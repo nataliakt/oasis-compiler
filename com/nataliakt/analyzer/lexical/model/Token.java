@@ -9,7 +9,7 @@ package com.nataliakt.analyzer.lexical.model;
 public class Token
 {
 
-	private final String name;
+	private String name;
 	private final String value;
 
 	public Token(String name, String value)
@@ -27,6 +27,10 @@ public class Token
 	public String getValue()
 	{
 		return value;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

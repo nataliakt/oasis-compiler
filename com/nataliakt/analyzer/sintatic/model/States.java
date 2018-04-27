@@ -6,7 +6,7 @@ public class States
 {
 
 	private Map<Integer, Actions> states;
-	private int[][] goTo; // <state, <'token', prodLine>
+	private int[][] goTo;
 
 	public States(Map<Integer, Actions> states, int[][] goTo)
 	{

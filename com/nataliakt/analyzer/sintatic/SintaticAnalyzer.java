@@ -48,11 +48,15 @@ public abstract class SintaticAnalyzer
 				
 				if (tokens.size() != t) {
 					Token token = tokens.get(t);
+					System.out.println();
+					System.out.println(token);
 					if (token.getName().equals("EPSILON")) {
 						continue;
 					}
 					action = states.getAction(stack.getState(), token.getName());
 				} else {
+					System.out.println();
+					System.out.println("$$");
 					action = states.getAction(stack.getState(), "DOLLAR");
 				}
 				System.out.println(action);

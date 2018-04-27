@@ -14,13 +14,13 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-//		System.out.println(PARSER_TABLE[0][41][1]);
 //        LexicalAnalyzer la = new OasisLexical();
-//        System.out.println(la.analyze("Class{\n}"));
+//        System.out.println(la.analyze("integer"));
 
 		OasisSintatic os = new OasisSintatic();
-		System.out.println(os.analyze("Class {" +
-				"" +
+		System.out.println(os.analyze("Class {\n" +
+				"integer asd\n" +
+				"main teste():bit opi{}\n" +
 				"}"));
 	}
 
