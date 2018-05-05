@@ -1,14 +1,11 @@
 package com.nataliakt.analyzer.lexical;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import com.nataliakt.analyzer.lexical.model.State;
 import com.nataliakt.analyzer.lexical.model.Token;
 
-import static com.nataliakt.analyzer.oasis.OasisLexicalConstants.SPECIAL_CASES_KEYS;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Analizador léxico

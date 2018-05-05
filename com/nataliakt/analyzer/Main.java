@@ -1,12 +1,6 @@
 package com.nataliakt.analyzer;
 
-import com.nataliakt.analyzer.lexical.LexicalAnalyzer;
-import com.nataliakt.analyzer.oasis.OasisLexical;
 import com.nataliakt.analyzer.oasis.OasisSintatic;
-import com.nataliakt.analyzer.oasis.OasisSintaticConstants;
-
-import static com.nataliakt.analyzer.oasis.OasisSintaticConstants.PARSER_TABLE;
-import static com.nataliakt.analyzer.oasis.OasisSintaticConstants.PRODUCTIONS;
 
 
 public class Main

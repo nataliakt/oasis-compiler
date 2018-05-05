@@ -1,12 +1,12 @@
 package com.nataliakt.analyzer.sintatic;
 
-import java.util.List;
-
 import com.nataliakt.analyzer.lexical.LexicalAnalyzer;
 import com.nataliakt.analyzer.lexical.model.Token;
 import com.nataliakt.analyzer.sintatic.model.Action;
 import com.nataliakt.analyzer.sintatic.model.Stack;
 import com.nataliakt.analyzer.sintatic.model.States;
+
+import java.util.List;
 
 /**
  * Analizador Sintático
@@ -19,6 +19,7 @@ public abstract class SintaticAnalyzer
 
 	private States states;
 	private LexicalAnalyzer lexicalAnalyzer;
+//	private SemanticAnalyzer semanticAnalyzer;
 
 	public SintaticAnalyzer(States states, LexicalAnalyzer lexicalAnalyzer)
 	{
@@ -43,11 +44,14 @@ public abstract class SintaticAnalyzer
 		System.out.println(stack);
 		
 		for (int t = 0; t <= tokens.size(); t++) {
+
+            Token token = new Token("DOLLAR", "$$");
+
 			try {
 				Action action = null;
 				
 				if (tokens.size() != t) {
-					Token token = tokens.get(t);
+					token = tokens.get(t);
 					System.out.println();
 					System.out.println(token);
 					if (token.getName().equals("EPSILON")) {
@@ -57,7 +61,7 @@ public abstract class SintaticAnalyzer
 				} else {
 					System.out.println();
 					System.out.println("$$");
-					action = states.getAction(stack.getState(), "DOLLAR");
+					action = states.getAction(stack.getState(), token.getName());
 				}
 				System.out.println(action);
 				
@@ -71,9 +75,9 @@ public abstract class SintaticAnalyzer
 					int[] prod = states.getGoTo()[action.getValue()];
 
 					stack.reduce(prod[1]);
-					String token = "TOKEN_" + (prod[0] - 1);
+					String tokenProd = "TOKEN_" + (prod[0] - 1);
 					int goTo = states.getStates().get(stack.getState())
-							.getActions().get(token).getValue();
+							.getActions().get(tokenProd).getValue();
 					stack.shift(goTo);
 
 					System.out.print("Desvio: " + goTo + " ");
@@ -90,17 +94,36 @@ public abstract class SintaticAnalyzer
 					return true;
 					
 				default:
-					System.out.println("Erro sintático!");
-					return false;
+					throw new SitaticActionNotFoundException(token + ". " + action + ". " + stack);
 				}
+
+
+
 			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
+				throw new SitaticException(token + ". " + stack, e);
 			}
 		}
 		
 		return false;
 		
+	}
+
+	public class SitaticActionNotFoundException extends RuntimeException
+	{
+		public SitaticActionNotFoundException(String message)
+		{
+			super(message);
+		}
+
+	}
+
+	public class SitaticException extends RuntimeException
+	{
+		public SitaticException(String message, Throwable throwable)
+		{
+			super(message, throwable);
+		}
+
 	}
 
 }
