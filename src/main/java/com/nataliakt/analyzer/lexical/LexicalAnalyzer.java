@@ -35,35 +35,35 @@ public abstract class LexicalAnalyzer
 	 */
 	public List<Token> analyze(String text)
 	{
-		List<Token> tokens = new ArrayList<Token>();
+		List<Token> tokens = new ArrayList<>();
 		State current = initial;
 		char[] characters = text.toCharArray();
-		String value = "";
+		StringBuilder value = new StringBuilder();
 
 		for (char character : characters) {
 			State next = current.nextState(character);
 
 			// Se for o estado final
 			if (next == null) {
-				tokens.add(new Token(current.getToken(), value));
-				value = Character.toString(character);
+				tokens.add(new Token(current.getToken(), value.toString()));
+				value = new StringBuilder(Character.toString(character));
 				next = initial.nextState(character);
 				
 				if (next == null) {
-					tokens.add(new Token(initial.getToken(), value));
-					value = "";
+					tokens.add(new Token(initial.getToken(), value.toString()));
+					value = new StringBuilder();
 					current = initial;
 				} else {
 					current = next;
 				}
 			} else {
-				value += character;
+				value.append(character);
 				current = next;
 			}
 		}
 
-		tokens.add(new Token(current.getToken(), value));
-		tokens.removeIf(token -> token.getName() == "EPSILON");
+		tokens.add(new Token(current.getToken(), value.toString()));
+		tokens.removeIf(token -> token.getName().equals("EPSILON"));
 
 		for(Token token : tokens) {
             String newToken = specialCases.get(token.getValue());

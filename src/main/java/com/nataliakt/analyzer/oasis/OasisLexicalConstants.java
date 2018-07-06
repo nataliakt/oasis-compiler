@@ -99,7 +99,7 @@ public interface OasisLexicalConstants {
             { 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16 };
 
     public static String[] SPECIAL_CASES_KEYS =
-            {  "bit", "decimal", "e", "else", "false", "for", "if", "integer", "main", "or", "read", "run", "string", "true", "while", "write" };
+            {  "bit", "decimal", "and", "else", "false", "for", "if", "integer", "main", "or", "read", "run", "string", "true", "while", "write" };
 
     public static int[] SPECIAL_CASES_VALUES =
             {  19, 18, 26, 14, 22, 15, 13, 17, 23, 25, 12, 24, 20, 21, 16, 11 };

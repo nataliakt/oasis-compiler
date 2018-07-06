@@ -36,7 +36,8 @@ public class State extends HashMap<String, State>
 		for (Entry<String, State> entry : this.entrySet()) {
 			if (letter.matches(entry.getKey())) {
 				if (state != null) {
-					throw new RedundantStatusException("Redundância no estado " + name + ": " + regex + " e " + entry.getKey()
+					throw new RedundantStatusException("Redundância no estado " +
+							name + ": " + regex + " e " + entry.getKey()
 							+ " produziram a mesma resposta no caracter " + letter);
 				}
 				regex = entry.getKey();

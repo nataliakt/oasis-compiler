@@ -44,12 +44,11 @@ public abstract class SintaticAnalyzer
 		System.out.println(stack);
 		
 		for (int t = 0; t <= tokens.size(); t++) {
-
             Token token = new Token("DOLLAR", "$$");
 
 			try {
-				Action action = null;
-				
+				Action action;
+
 				if (tokens.size() != t) {
 					token = tokens.get(t);
 					System.out.println();
@@ -64,13 +63,12 @@ public abstract class SintaticAnalyzer
 					action = states.getAction(stack.getState(), token.getName());
 				}
 				System.out.println(action);
-				
+
 				switch (action.getAction()) {
 				case SHIFT:
 					stack.shift(action.getValue());
 					System.out.println(stack);
 					break;
-
 				case REDUCE:
 					int[] prod = states.getGoTo()[action.getValue()];
 
@@ -83,34 +81,26 @@ public abstract class SintaticAnalyzer
 					System.out.print("Desvio: " + goTo + " ");
 					System.out.println(stack);
 
-//                    if (t < tokens.size() - 1) {
-                        t--;
-//                    }
-
+					t--;
 					break;
-					
 				case ACC:
 					System.out.println(stack);
 					return true;
-					
 				default:
-					throw new SitaticActionNotFoundException(token + ". " + action + ". " + stack);
+					throw new SitaticActionNotFoundException(token + ". " + action +
+							". " + stack);
 				}
-
-
-
 			} catch (Exception e) {
 				throw new SitaticException(token + ". " + stack, e);
 			}
 		}
-		
 		return false;
 		
 	}
 
 	public class SitaticActionNotFoundException extends RuntimeException
 	{
-		public SitaticActionNotFoundException(String message)
+		SitaticActionNotFoundException(String message)
 		{
 			super(message);
 		}
@@ -119,7 +109,7 @@ public abstract class SintaticAnalyzer
 
 	public class SitaticException extends RuntimeException
 	{
-		public SitaticException(String message, Throwable throwable)
+		SitaticException(String message, Throwable throwable)
 		{
 			super(message, throwable);
 		}
