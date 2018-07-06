@@ -38,7 +38,11 @@ public class OasisLexical extends LexicalAnalyzer {
             if (q == 0) {
                 state = q0;
             } else {
-                String token = TOKEN[TOKEN_STATE[q]];
+                int tokenState = TOKEN_STATE[q];
+                if (tokenState < 0) {
+                    tokenState = 0;
+                }
+                String token = TOKEN[tokenState];
                 String tokens = Arrays.stream(SPECIAL_CASES_KEYS).filter(t -> t.equals(token)).toString();
                 state = new State("q" + q, token);
             }

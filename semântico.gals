@@ -1,0 +1,215 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+Package = br.nataliakelimthiel.recognizer.gals
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = Stream
+Parser = LR
+#RegularDefinitions
+L : [a-zA-Z]
+LMA : [A-Z]
+LMI : [a-z]
+D : [0-9]
+WS : [\ \t\r]
+NL : [\n]
+AS : "'" [^ "'" ]* "'"
+AD : \" [^ \" ]* \"
+P : "."
+U : "_"
+CM : "#*" [^ "*" ]* "*#"
+EN : "+" | "-"
+AC: "{"
+FC: "}"
+DP: ":"
+BI: "\"
+#Tokens
+MAID : {LMA} ({L} | {D} | {U})* // IDENTIFICADOR DE COMEÇANDO COM MAIUSCULO
+MIID : {LMI} ({L} | {D} | {U})* // IDENTIFICADOR DE VARIÁVEL
+ENCAP : {EN}* {L} ({L} | {D} | {U})* // ENCAPSULAMENTO
+
+INTEIRO : {D}+ // NÚMERO INTEIRO
+REAL : {D}+ {P}? {D}*
+TEXTO : {AS} | {AD} // TEXTO
+
+ : {BI} {NL}
+ : {WS}* // IGNORA ESPAÇOS
+ :! {CM} // IGNORA COMENTARIOS
+
+NL : {NL}* // NOVA LINHA
+
+// COMANDOS
+WRITE = MIID : "write"
+READ = MIID : "read"
+
+IF = MIID : "if"
+ELSE = MIID : "else"
+
+FOR = MIID : "for"
+
+WHILE = MIID : "while"
+
+INT = MIID : "integer"
+DOUBLE = MIID : "decimal"
+BOOLEAN = MIID : "bit"
+STRING = MIID : "string"
+
+TRUE = MIID : "true"
+FALSE = MIID : "false"
+
+MAIN = MIID : "main"
+RUN = MIID : "run"
+
+OU = MIID : "or"
+E = MIID : "e"
+
+// SÍMBOLOS
+AC: {NL}* {AC}
+FC: {FC} {NL}*
+DEF : "="
+DEFRET : ":="
+AP : "("
+FP : ")"
+V : ","
+P : "."
+DP : {NL}* {DP} {NL}*
+
+// COMPARAÇÃO
+IGUAL : "=="
+DIF : "^="
+MAIOR : ">"
+MENOR : "<"
+MAIORIGUAL : ">="
+MENORIGUAL : "<="
+NEG : "^"
+
+// OPERAÇÃO
+SOMA : "+"
+SUB : "-"
+MULT : "*"
+DIV : "/"
+#NonTerminals
+<BPRINCIPAL>
+<CPRINCIPAL>
+
+<CLASSE>
+<CCLASSE>
+<BCLASSE>
+
+<ATRIBUTO>
+
+<DEF>
+<TIPO>
+<BIT>
+<OBJ>
+<VALOR>
+
+<BPARAM>
+<CPARAM>
+
+<EXP>
+<EXP2>
+<EXP3>
+<EXP4>
+<EXP5>
+
+<EXPL>
+<EXPL2>
+<EXPL3>
+<EXPL4>
+<EXPL5>
+
+<CNVARIAVEL>
+<BNVARIAVEL>
+
+<NVARIAVEL>
+<EVARIAVEL>
+
+<UVARIAVEL>
+
+<VAR>
+<IDMETODO>
+<METODO>
+<ATRIBUTOS>
+<THREAD>
+<PRIV>
+<RETORNO>
+
+<COMANDO>
+<BLOCO>
+
+<IF>
+<ELSE>
+
+<FOR>
+
+<WHILE>
+
+<READ>
+<WRITE>
+
+<FUN>
+#Grammar
+<BPRINCIPAL> ::= <CPRINCIPAL> <BPRINCIPAL> | <CPRINCIPAL>;
+<CPRINCIPAL> ::= <CLASSE>;
+
+<CLASSE> ::= MAID #1 AC <BCLASSE> FC;
+<CCLASSE> ::= <ATRIBUTO> | <METODO> | NL;
+<BCLASSE> ::= <CCLASSE> <BCLASSE> | î;
+
+<ATRIBUTO> ::= <NVARIAVEL> NL;
+
+<DEF> ::= DEF | DEFRET;
+<TIPO> ::= INT | DOUBLE | BOOLEAN | STRING | MAID;
+<BIT> ::= TRUE | FALSE;
+<OBJ> ::= MAID #2 AP  <BPARAM> FP;
+<VALOR> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | MIID | AP <VALOR> FP | <READ>;
+
+<BPARAM> ::= <CPARAM> V <BPARAM> | <CPARAM> | î;
+<CPARAM> ::= <VALOR>;
+
+<EXP> ::= <EXP> SOMA <EXP2> | <EXP2>;
+<EXP2> ::= <EXP2> SUB <EXP3> | <EXP3>;
+<EXP3> ::= <EXP3> DIV <EXP4> | <EXP4>;
+<EXP4> ::= <EXP4> MULT <EXP5> | <EXP5>;
+<EXP5> ::= AP <EXP> FP | <VALOR>;
+
+<EXPL> ::= <EXPL> E <EXPL2> | <EXPL2>;
+<EXPL2> ::= <EXPL2> OU <EXPL3> | <EXPL3>;
+<EXPL3> ::= <EXPL3> DIF <EXPL4> | <EXPL4>;
+<EXPL4> ::= <EXPL4> IGUAL <EXPL5> | <EXPL5>;
+<EXPL5> ::= AP <EXPL> FP | <VALOR>;
+
+<CNVARIAVEL> ::=  V <EVARIAVEL> | V MIID;
+<BNVARIAVEL> ::= <CNVARIAVEL> <BNVARIAVEL> | î;
+
+<NVARIAVEL> ::= <TIPO> MIID <DEF> <VALOR> <BNVARIAVEL> | <TIPO> MIID <BNVARIAVEL>;
+<EVARIAVEL> ::= MIID <DEF> <VALOR>;
+
+<UVARIAVEL> ::= <EVARIAVEL> | <TIPO> <EVARIAVEL>;
+
+<VAR> ::= MIID | MAID;
+<IDMETODO> ::= MIID | ENCAP;
+<METODO> ::= <THREAD> <IDMETODO> AP <ATRIBUTOS> FP <RETORNO> AC <BLOCO> FC;
+<ATRIBUTOS> ::= <NVARIAVEL> | î;
+<THREAD> ::= MAIN | RUN | î;
+<RETORNO> ::= DP <TIPO> MIID | î;
+
+<COMANDO> ::= <NVARIAVEL> NL | <EVARIAVEL> NL | <IF> | <FOR> | <WRITE> NL | <FUN> NL | NL;
+<BLOCO> ::= <COMANDO> <BLOCO> | î;
+
+<IF> ::= IF <VALOR> AC <BLOCO> FC <ELSE>;
+<ELSE> ::= ELSE AC <BLOCO> FC | î;
+
+<FOR> ::= FOR <UVARIAVEL> DP <VALOR> DP <EVARIAVEL> AC <BLOCO> FC;
+
+<WHILE> ::= WHILE <VALOR> AC <BLOCO> FC;
+
+<READ> ::= READ AP FP;
+<WRITE> ::= WRITE AP <VALOR> FP;
+
+<FUN> ::= <VALOR> P MIID AP <BPARAM> FP;
