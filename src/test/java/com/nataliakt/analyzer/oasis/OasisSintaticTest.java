@@ -8,22 +8,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OasisSintaticTest {
 
-    SintaticAnalyzer sintaticAnalyzer;
-
-    @BeforeEach
-    void setUp() {
-        sintaticAnalyzer = new OasisSintatic();
-    }
-
     @Test
     void testNewClass() {
+        SintaticAnalyzer sintaticAnalyzer = new OasisSintatic();
         boolean analize = sintaticAnalyzer.analyze("Classe {}");
 
         assertEquals(true, analize, "Falha ao analisar classe");
     }
 
     @Test
+    void testNewsClass() {
+        SintaticAnalyzer sintaticAnalyzer = new OasisSintatic();
+        boolean analize = sintaticAnalyzer.analyze("Classe {} Classe {}");
+
+        assertEquals(true, analize, "Falha ao analisar classes");
+    }
+
+    @Test
     void testAtributes() {
+        SintaticAnalyzer sintaticAnalyzer = new OasisSintatic();
         boolean analize = sintaticAnalyzer.analyze("Classe {\n" +
                 "integer a, a = 999\n" +
                 "bit a = true\n" +
@@ -36,9 +39,11 @@ class OasisSintaticTest {
 
     @Test
     void testMethods() {
+        SintaticAnalyzer sintaticAnalyzer = new OasisSintatic();
         boolean analize = sintaticAnalyzer.analyze("Classe {\n" +
-                "main iniciar () {}\n" +
-                "run thread () {}\n" +
+                "main iniciar () {" +
+                "}\n" +
+                "privateMethod () {}\n" +
                 "+metodoPublico () : bit resposta{\n" +
                 "resposta = true\n" +
                 "}\n" +

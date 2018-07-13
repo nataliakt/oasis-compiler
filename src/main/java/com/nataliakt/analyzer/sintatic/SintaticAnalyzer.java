@@ -2,11 +2,13 @@ package com.nataliakt.analyzer.sintatic;
 
 import com.nataliakt.analyzer.lexical.LexicalAnalyzer;
 import com.nataliakt.analyzer.lexical.model.Token;
+import com.nataliakt.analyzer.semantic.SemanticAnalyzer;
 import com.nataliakt.analyzer.sintatic.model.Action;
 import com.nataliakt.analyzer.sintatic.model.Stack;
 import com.nataliakt.analyzer.sintatic.model.States;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Analizador Sintático
@@ -17,15 +19,18 @@ import java.util.List;
 public abstract class SintaticAnalyzer
 {
 
+	private int firstSemanticAction;
 	private States states;
 	private LexicalAnalyzer lexicalAnalyzer;
-//	private SemanticAnalyzer semanticAnalyzer;
+	private SemanticAnalyzer semanticAnalyzer;
+	private List<Token> tokens;
 
-	public SintaticAnalyzer(States states, LexicalAnalyzer lexicalAnalyzer)
+	public SintaticAnalyzer(States states, LexicalAnalyzer lexicalAnalyzer, int firstSemanticAction)
 	{
 		super();
 		this.states = states;
 		this.lexicalAnalyzer = lexicalAnalyzer;
+		this.firstSemanticAction = firstSemanticAction;
 	}
 
 	/**
@@ -37,7 +42,7 @@ public abstract class SintaticAnalyzer
 	 */
 	public boolean analyze(String text)
 	{
-		List<Token> tokens = lexicalAnalyzer.analyze(text);
+		tokens = lexicalAnalyzer.analyze(text);
 		System.out.println(tokens);
 		Stack stack = new Stack();
 		stack.shift(0);
@@ -46,30 +51,34 @@ public abstract class SintaticAnalyzer
 		for (int t = 0; t <= tokens.size(); t++) {
             Token token = new Token("DOLLAR", "$$");
 
-			try {
-				Action action;
+			Action action;
 
-				if (tokens.size() != t) {
-					token = tokens.get(t);
-					System.out.println();
-					System.out.println(token);
-					if (token.getName().equals("EPSILON")) {
-						continue;
-					}
-					action = states.getAction(stack.getState(), token.getName());
-				} else {
-					System.out.println();
-					System.out.println("$$");
-					action = states.getAction(stack.getState(), token.getName());
+			if (tokens.size() != t) {
+				token = tokens.get(t);
+				System.out.println();
+				System.out.println(token);
+				if (token.getName().equals("EPSILON")) {
+					continue;
 				}
-				System.out.println(action);
+				action = states.getAction(stack.getState(), token.getName());
+			} else {
+				System.out.println();
+				System.out.println("$$");
+				action = states.getAction(stack.getState(), token.getName());
+			}
+			System.out.println(action);
 
-				switch (action.getAction()) {
-				case SHIFT:
-					stack.shift(action.getValue());
-					System.out.println(stack);
-					break;
-				case REDUCE:
+			if (action == null) {
+				throw new NullSitaticActionException(token + ". " + stack);
+			}
+
+			switch (action.getAction()) {
+			case SHIFT:
+				stack.shift(action.getValue());
+				System.out.println(stack);
+				break;
+			case REDUCE:
+				try {
 					int[] prod = states.getGoTo()[action.getValue()];
 
 					stack.reduce(prod[1]);
@@ -80,22 +89,58 @@ public abstract class SintaticAnalyzer
 
 					System.out.print("Desvio: " + goTo + " ");
 					System.out.println(stack);
+				} catch (Exception e) {
+					throw new SitaticReduceException(token + ". " + action +
+							". " + stack, e);
+				}
 
+				if (t >= 0) {
 					t--;
-					break;
-				case ACC:
-					System.out.println(stack);
-					return true;
-				default:
-					throw new SitaticActionNotFoundException(token + ". " + action +
+				}
+				break;
+			case ACC:
+				stack.reduce(1);
+				System.out.println(stack);
+				return true;
+			case ACTION:
+				Action go = states.getAction(stack.getState(), "TOKEN_" + (firstSemanticAction + action.getValue() - 1));
+
+				if (go == null) {
+					throw new NullSitaticActionException(token + ". " + action +
 							". " + stack);
 				}
-			} catch (Exception e) {
-				throw new SitaticException(token + ". " + stack, e);
+
+				if (semanticAnalyzer != null) {
+					semanticAnalyzer.addAction(action.getValue(), token);
+				}
+
+				if (stack.getState() != 0) {
+					stack.reduce(1);
+					System.out.println("Ação: Reduzir, Valor: 1");
+				}
+				stack.shift(go.getValue());
+				System.out.println("Ação: Empilhar, Valor: " + go.getValue());
+				System.out.println(stack);
+
+				if (t >= 0) {
+					t--;
+				}
+				break;
+			default:
+				throw new SitaticActionNotFoundException(token + ". " + action +
+						". " + stack);
 			}
 		}
 		return false;
 		
+	}
+
+	public Stream<Token> getTokens() {
+		return tokens.stream();
+	}
+
+	public void setSemanticAnalyzer(SemanticAnalyzer semanticAnalyzer) {
+		this.semanticAnalyzer = semanticAnalyzer;
 	}
 
 	public class SitaticActionNotFoundException extends RuntimeException
@@ -104,16 +149,22 @@ public abstract class SintaticAnalyzer
 		{
 			super(message);
 		}
-
 	}
 
-	public class SitaticException extends RuntimeException
+	public class NullSitaticActionException extends RuntimeException
 	{
-		SitaticException(String message, Throwable throwable)
+		NullSitaticActionException(String message)
+		{
+			super(message);
+		}
+	}
+
+	public class SitaticReduceException extends RuntimeException
+	{
+		SitaticReduceException(String message, Throwable throwable)
 		{
 			super(message, throwable);
 		}
-
 	}
 
 }

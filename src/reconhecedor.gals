@@ -9,7 +9,7 @@ Package = br.nataliakelimthiel.recognizer.gals
 ScannerCaseSensitive = true
 ScannerTable = Full
 Input = Stream
-Parser = LR
+Parser = SLR
 #RegularDefinitions
 L : [a-zA-Z]
 LMA : [A-Z]
@@ -157,17 +157,17 @@ DIV : "/"
 <BPRINCIPAL> ::= <CPRINCIPAL> <BPRINCIPAL> | <CPRINCIPAL>;
 <CPRINCIPAL> ::= <CLASSE>;
 
-<CLASSE> ::= MAID AC <BCLASSE> FC;
-<CCLASSE> ::= <ATRIBUTO> | <METODO> | NL;
+<CLASSE> ::= #0 MAID AC <BCLASSE> FC;
+<CCLASSE> ::= #1 <ATRIBUTO> | <METODO> | NL;
 <BCLASSE> ::= <CCLASSE> <BCLASSE> | î;
 
 <ATRIBUTO> ::= <NVARIAVEL> NL;
 
 <DEF> ::= DEF | DEFRET;
-<TIPO> ::= INT | DOUBLE | BOOLEAN | STRING | MAID;
+<TIPO> ::= #2 INT | #3 DOUBLE | #4 BOOLEAN | #5 STRING | #6 MAID;
 <BIT> ::= TRUE | FALSE;
 <OBJ> ::= MAID AP  <BPARAM> FP;
-<VALOR> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | MIID | AP <VALOR> FP | <READ> | <EXP> | <EXPL>;
+<VALOR> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | MIID | AP <VALOR> FP | <READ>;
 
 <BPARAM> ::= <CPARAM> V <BPARAM> | <CPARAM> | î;
 <CPARAM> ::= <VALOR>;
@@ -187,7 +187,7 @@ DIV : "/"
 <CNVARIAVEL> ::=  V <EVARIAVEL> | V MIID;
 <BNVARIAVEL> ::= <CNVARIAVEL> <BNVARIAVEL> | î;
 
-<NVARIAVEL> ::= <TIPO> MIID <DEF> <VALOR> <BNVARIAVEL> | <TIPO> MIID <BNVARIAVEL>;
+<NVARIAVEL> ::= <TIPO> #7 MIID <DEF> <VALOR> <BNVARIAVEL> | <TIPO> MIID <BNVARIAVEL>;
 <EVARIAVEL> ::= MIID <DEF> <VALOR>;
 
 <UVARIAVEL> ::= <EVARIAVEL> | <TIPO> <EVARIAVEL>;

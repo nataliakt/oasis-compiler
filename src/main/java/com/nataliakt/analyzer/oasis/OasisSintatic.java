@@ -21,7 +21,9 @@ public class OasisSintatic extends SintaticAnalyzer {
     private static States states = new States(s, PRODUCTIONS);
 
     public OasisSintatic() {
-        super(states, new OasisLexical());
+        super(states, new OasisLexical(), FIRST_SEMANTIC_ACTION);
+
+        s.clear();
 
         autoImport();
     }
@@ -47,6 +49,9 @@ public class OasisSintatic extends SintaticAnalyzer {
                             break;
                         case GO_TO:
                             acs.put("TOKEN_" + t, new Action(ActionEnum.GO_TO, stateLine[t][1]));
+                            break;
+                        case ACTION:
+                            acs.put(TOKEN[t + 1], new Action(ActionEnum.ACTION, stateLine[t][1]));
                             break;
                     }
                 }

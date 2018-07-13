@@ -1,5 +1,7 @@
 package com.nataliakt.analyzer;
 
+import com.nataliakt.analyzer.lexical.LexicalAnalyzer;
+import com.nataliakt.analyzer.oasis.OasisLexical;
 import com.nataliakt.analyzer.oasis.OasisSintatic;
 
 
@@ -14,7 +16,9 @@ public class Main
 		OasisSintatic os = new OasisSintatic();
 		System.out.println(os.analyze("Class {\n" +
 				"integer asd\n" +
-				"main teste():bit opi{}\n" +
+				"main teste():bit opi{\n" +
+				"if issa {}\n" +
+				"}\n" +
 				"}"));
 	}
 

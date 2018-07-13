@@ -33,7 +33,7 @@ public class Action {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Ação: ");
 		builder.append(action.getDescription());
-		builder.append(" Valor:");
+		builder.append(", Valor: ");
 		builder.append(value);
 		return builder.toString();
 	}
@@ -41,7 +41,7 @@ public class Action {
 
 	public enum ActionEnum {
 
-		SHIFT("Empilhar"), REDUCE("Reduzir"), ACC("Aceitar"), GO_TO("Ir para");
+		SHIFT("Empilhar"), REDUCE("Reduzir"), ACC("Aceitar"), GO_TO("Ir para"), ACTION("Ação Semântica");
 
 		private String description;
 		
