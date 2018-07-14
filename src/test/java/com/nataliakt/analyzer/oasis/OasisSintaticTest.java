@@ -41,12 +41,7 @@ class OasisSintaticTest {
     void testMethods() {
         SintaticAnalyzer sintaticAnalyzer = new OasisSintatic();
         boolean analize = sintaticAnalyzer.analyze("Classe {\n" +
-                "main iniciar () {" +
-                "}\n" +
-                "privateMethod () {}\n" +
-                "+metodoPublico () : bit resposta{\n" +
-                "resposta = true\n" +
-                "}\n" +
+                "+metodoPublico () {}\n" +
                 "}");
 
         assertEquals(true, analize, "Falha ao analisar métodos");
