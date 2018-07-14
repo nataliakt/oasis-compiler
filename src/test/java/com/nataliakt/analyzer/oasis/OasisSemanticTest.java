@@ -44,9 +44,7 @@ class OasisSemanticTest {
                 "}" +
                 "Classe2{\nbit teste=true\n}");
 
-        System.out.println(program.toString());
-
-        assertEquals("main[][Classe[integer teste=null, integer teste2=2][], Classe2[bit teste=true][]]",program.toString());
+        assertEquals("main[][Classe[integer teste=null, integer teste2=2, string texto=oi][], Classe2[bit teste=true][]]",program.toString());
     }
 
     @Test
@@ -60,6 +58,17 @@ class OasisSemanticTest {
         };
 
         assertThrows(AlreadyExistingVariableNameException.class, executable);
+    }
+
+    @Test
+    void testClassMethod() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "main inicio() {}\n" +
+                "+soma (decimal n1, decimal n2) : decimal soma {}\n" +
+                "}");
+
+        System.out.println(program.toString());
     }
 
 }

@@ -5,18 +5,18 @@ import java.io.FileReader;
 
 public interface OasisSintaticConstants {
 
-    public static int FIRST_SEMANTIC_ACTION = 88;
+    int FIRST_SEMANTIC_ACTION = 89;
 
-    public static int SHIFT = 0;
-    public static int REDUCE = 1;
-    public static int ACTION = 2;
-    public static int ACCEPT = 3;
-    public static int GO_TO = 4;
-    public static int ERROR = 5;
+    int SHIFT = 0;
+    int REDUCE = 1;
+    int ACTION = 2;
+    int ACCEPT = 3;
+    int GO_TO = 4;
+    int ERROR = 5;
 
-    public static int[][][] PARSER_TABLE = loadFile();
+    int[][][] PARSER_TABLE = loadFile();
 
-    public static int[][][] loadFile() {
+    static int[][][] loadFile() {
         String fileName = "C:\\Users\\natal\\IdeaProjects\\analyzer\\src\\main\\java\\com\\nataliakt\\analyzer\\oasis\\sintatic_parse_table";
 
         try {
@@ -60,26 +60,26 @@ public interface OasisSintaticConstants {
         return new int[][][]{};
     }
 
-    public static int getAction(String action) {
+    static int getAction(String action) {
         switch (action) {
             case "SHIFT":
-                return 0;
+                return SHIFT;
             case "REDUCE":
-                return 1;
+                return REDUCE;
             case "ACTION":
-                return 2;
+                return ACTION;
             case "ACCEPT":
-                return 3;
+                return ACCEPT;
             case "GO_TO":
-                return 4;
+                return GO_TO;
             case "ERROR":
-                return 5;
+                return ERROR;
             default:
-                return 5;
+                return ERROR;
         }
     }
 
-    public static int[][] PRODUCTIONS =
+    int[][] PRODUCTIONS =
             {
                     { 44, 2 },
                     { 44, 1 },
@@ -147,29 +147,32 @@ public interface OasisSintaticConstants {
                     { 73, 1 },
                     { 73, 1 },
                     { 74, 9 },
-                    { 75, 1 },
+                    { 75, 5 },
+                    { 75, 3 },
                     { 75, 0 },
-                    { 76, 1 },
+                    { 76, 2 },
                     { 76, 0 },
-                    { 78, 3 },
-                    { 78, 0 },
-                    { 79, 2 },
-                    { 79, 2 },
-                    { 79, 1 },
-                    { 79, 1 },
-                    { 79, 2 },
-                    { 79, 2 },
-                    { 79, 1 },
+                    { 77, 1 },
+                    { 77, 0 },
+                    { 79, 3 },
+                    { 79, 0 },
                     { 80, 2 },
-                    { 80, 0 },
-                    { 81, 6 },
-                    { 82, 4 },
-                    { 82, 0 },
-                    { 83, 9 },
-                    { 84, 5 },
-                    { 85, 3 },
-                    { 86, 4 },
-                    { 87, 5 }
+                    { 80, 2 },
+                    { 80, 1 },
+                    { 80, 1 },
+                    { 80, 2 },
+                    { 80, 2 },
+                    { 80, 1 },
+                    { 81, 2 },
+                    { 81, 0 },
+                    { 82, 6 },
+                    { 83, 4 },
+                    { 83, 0 },
+                    { 84, 9 },
+                    { 85, 5 },
+                    { 86, 3 },
+                    { 87, 4 },
+                    { 88, 5 }
             };
 
 }
