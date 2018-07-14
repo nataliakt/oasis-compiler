@@ -154,6 +154,7 @@ public interface OasisSintaticConstants {
                     { 76, 0 },
                     { 77, 1 },
                     { 77, 0 },
+                    { 79, 5 },
                     { 79, 3 },
                     { 79, 0 },
                     { 80, 2 },

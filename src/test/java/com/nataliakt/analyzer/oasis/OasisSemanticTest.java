@@ -36,7 +36,7 @@ class OasisSemanticTest {
     }
 
     @Test
-    void testClassAttribute() {
+    void testAttribute() {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Scope program = semanticAnalyzer.analyze("Classe {\n" +
                 "integer teste, teste2 = 2\n" +
@@ -48,7 +48,7 @@ class OasisSemanticTest {
     }
 
     @Test
-    void testClassAttributeExixts() {
+    void testAttributeExixts() {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Executable executable = () -> {
             Scope program = semanticAnalyzer.analyze("Classe {\n" +
@@ -61,14 +61,30 @@ class OasisSemanticTest {
     }
 
     @Test
-    void testClassMethod() {
+    void testAttributeWrongDefinition() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Executable executable = () -> {
+            Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                    "integer teste = true\n" +
+                    "}" +
+                    "Classe2{\nbit teste=true\n}");
+        };
+
+        assertThrows(OasisSemantic.WrongDefinitionException.class, executable);
+    }
+
+    @Test
+    void testMethod() {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Scope program = semanticAnalyzer.analyze("Classe {\n" +
                 "main inicio() {}\n" +
-                "+soma (decimal n1, decimal n2) : decimal soma {}\n" +
+                "+soma (decimal n1 = 0, decimal n2 = 0) : decimal soma {}\n" +
+                "retornoDefoult () : bit retorno = true {}\n" +
                 "}");
 
-        System.out.println(program.toString());
+        System.out.println(program);
+
+        assertEquals("main[][Classe[][inicio[][], soma[decimal n1=0.0, decimal n2=0.0, decimal soma=null][], retornoDefoult[bit retorno=true][]]]", program.toString());
     }
 
 }

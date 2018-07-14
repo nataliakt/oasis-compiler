@@ -53,6 +53,13 @@ public class Scope {
         }
     }
 
+    public Scope getProgramChild() {
+        if (father.father == null) {
+            return this;
+        }
+        return father.getProgramChild();
+    }
+
     public String getName() {
         return name;
     }
