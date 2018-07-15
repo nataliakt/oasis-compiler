@@ -82,8 +82,6 @@ class OasisSemanticTest {
                 "retornoDefoult () : bit retorno = true {}\n" +
                 "}");
 
-        System.out.println(program);
-
         assertEquals("main[][Classe[][inicio[][], soma[decimal n1=0.0, decimal n2=0.0, decimal soma=null][], retornoDefoult[bit retorno=true][]]]", program.toString());
     }
 

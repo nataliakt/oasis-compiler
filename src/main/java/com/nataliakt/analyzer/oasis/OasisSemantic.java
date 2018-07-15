@@ -14,6 +14,7 @@ public class OasisSemantic extends SemanticAnalyzer {
     public static final int CLASS = 0;
     public static final int ATTRIBUTE = 1;
     public static final int METHOD = 2;
+    public static final int IF = 3;
 
     public Scope currentScope;
 
@@ -142,6 +143,10 @@ public class OasisSemantic extends SemanticAnalyzer {
 
                     method.setReturnVariable(variable);
                 }
+
+                break;
+
+            case IF:
 
                 break;
         }

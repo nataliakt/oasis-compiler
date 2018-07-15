@@ -2,22 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98888b2a-c15e-4123-b904-d2c79f7e7d17" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Conditional.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Definition.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Loop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gals/code/ParserConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/gals/code/ParserConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gals/reconhecedor.gals" beforeDir="false" afterPath="$PROJECT_DIR$/gals/reconhecedor.gals" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintaticConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintaticConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/sintatic_parse_table" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/sintatic_parse_table" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Scope.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/oasis/OasisSemantic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/oasis/OasisSemantic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/oasis/OasisSintaticConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/oasis/OasisSintaticConstants.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/oasis/sintatic_parse_table" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/oasis/sintatic_parse_table" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Function.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Function.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Scope$AlreadyExistingScopeNameException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Scope$AlreadyExistingScopeNameException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Scope$AlreadyExistingVariableNameException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Scope$AlreadyExistingVariableNameException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Scope.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/production/analyzer/com/nataliakt/analyzer/semantic/model/Scope.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test/analyzer/com/nataliakt/analyzer/oasis/OasisSemanticTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test/analyzer/com/nataliakt/analyzer/oasis/OasisSemanticTest.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,19 +54,70 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SintaticAnalyzer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/sintatic/SintaticAnalyzer.java">
+      <file leaf-file-name="OasisSemanticTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="120" selection-start-line="120" selection-end-line="120" />
+            <state relative-caret-position="380">
+              <caret line="82" column="21" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OasisSintaticConstants.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OasisSemantic.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="148" column="20" selection-start-line="148" selection-start-column="20" selection-end-line="148" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Conditional.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Conditional.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="40" lean-forward="true" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+              <folding>
+                <element signature="e#139#140#0" expanded="true" />
+                <element signature="e#174#175#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Definition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Definition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+              <folding>
+                <element signature="e#138#139#0" expanded="true" />
+                <element signature="e#173#174#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Loop.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Loop.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="20" lean-forward="true" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+              <folding>
+                <element signature="e#125#126#0" expanded="true" />
+                <element signature="e#160#161#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OasisSintaticConstants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintaticConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
+            <state relative-caret-position="284">
               <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -79,41 +126,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OasisSemanticTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ParserConstants.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gals/code/ParserConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1635">
-              <caret line="245" column="17" selection-start-line="153" selection-start-column="8" selection-end-line="245" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OasisSemantic.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="105" column="56" lean-forward="true" selection-start-line="105" selection-start-column="56" selection-end-line="105" selection-end-column="56" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Function.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Function.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
+            <state relative-caret-position="160">
+              <caret line="249" column="17" lean-forward="true" selection-start-line="157" selection-start-column="8" selection-end-line="249" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -177,10 +194,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisLexicalConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Scope.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Function.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/sintatic_parse_table" />
         <option value="$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/sintatic_parse_table" />
         <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintaticConstants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Loop.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Conditional.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Comand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Command.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Definition.java" />
       </list>
     </option>
   </component>
@@ -195,6 +217,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,25 +270,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="analyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="lexical" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="analyzer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="analyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="analyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="lexical" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="analyzer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="analyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="analyzer" type="462c0819:PsiDirectoryNode" />
               <item name="oasis" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -285,15 +290,6 @@
               <item name="analyzer" type="462c0819:PsiDirectoryNode" />
               <item name="semantic" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="analyzer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="analyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="analyzer" type="462c0819:PsiDirectoryNode" />
-              <item name="sintatic" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="analyzer" type="b2602c69:ProjectViewProjectNode" />
@@ -321,8 +317,6 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -505,9 +499,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in analyzer" />
+        <item itemvalue="JAR Application.gals.jar" />
         <item itemvalue="JUnit.OasisSemanticTest.testClassMethod" />
         <item itemvalue="JUnit.OasisSemanticTest.testClassAttributeWrongDefinition" />
-        <item itemvalue="JAR Application.gals.jar" />
         <item itemvalue="JUnit.OasisSintaticTest.testMethods" />
       </list>
     </recent_temporary>
@@ -537,16 +531,17 @@
       <option name="project" value="LOCAL" />
       <updated>1531593288336</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Método com retorno padrão">
+      <created>1531608193307</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1531608193307</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="OasisSemanticTest_testClassMethod - 2018.07.14 at 16h 58m 36s.xml">
-      <configuration name="OasisSemanticTest.testClassMethod" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OasisSemanticTest_testClassMethod - 2018.07.14 at 16h 59m 07s.xml">
-      <configuration name="OasisSemanticTest.testClassMethod" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="OasisSemanticTest_testClassMethod - 2018.07.14 at 16h 59m 30s.xml">
       <configuration name="OasisSemanticTest.testClassMethod" configurationId="JUnit" />
     </history-entry>
@@ -571,10 +566,15 @@
     <history-entry file="All_in_analyzer - 2018.07.14 at 19h 40m 36s.xml">
       <configuration name="All in analyzer" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="All_in_analyzer - 2018.07.14 at 19h 42m 30s.xml">
+      <configuration name="All in analyzer" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_analyzer - 2018.07.15 at 13h 59m 03s.xml">
+      <configuration name="All in analyzer" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -585,7 +585,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" x="1366" y="23" width="1600" height="837" id="Run" order="2" type="WINDOWED" visible="true" weight="0.45945945" />
+      <window_info anchor="bottom" x="0" y="23" width="1366" height="705" id="Run" order="2" visible="true" weight="0.2798092" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
@@ -613,7 +613,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Testes sitáticos funcionando, voltando aos semânticos" />
     <MESSAGE value="Corrigido bug de apenas um tipo de parâmetro no método" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrigido bug de apenas um tipo de parâmetro no método" />
+    <MESSAGE value="Método com retorno padrão" />
+    <option name="LAST_COMMIT_MESSAGE" value="Método com retorno padrão" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -641,41 +642,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSintaticTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="1" lean-forward="true" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisLexical.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisLexicalTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintatic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSintaticTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
@@ -810,13 +776,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Double.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Integer.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/String.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Variable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/lexical/model/Token.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -828,11 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="25" selection-start-line="25" selection-end-line="25" />
-          <folding>
-            <element signature="e#460#461#0" expanded="true" />
-            <element signature="e#574#575#0" expanded="true" />
-            <element signature="e#592#593#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -840,11 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#246#247#0" expanded="true" />
-            <element signature="e#269#270#0" expanded="true" />
-            <element signature="e#503#504#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -852,10 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-          <folding>
-            <element signature="e#265#266#0" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -897,20 +842,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/sintatic/SintaticAnalyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/sintatic_parse_table">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="133" column="1390" selection-start-line="133" selection-start-column="1390" selection-end-line="133" selection-end-column="1390" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -918,36 +849,102 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/sintatic/SintaticAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="105" column="56" lean-forward="true" selection-start-line="105" selection-start-column="56" selection-end-line="105" selection-end-column="56" />
+        <state relative-caret-position="476">
+          <caret line="120" selection-start-line="120" selection-end-line="120" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="82" column="21" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/sintatic_parse_table">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="137" column="1450" selection-start-line="137" selection-start-column="1450" selection-end-line="137" selection-end-column="1450" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gals/code/ParserConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="249" column="17" lean-forward="true" selection-start-line="157" selection-start-column="8" selection-end-line="249" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintaticConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/nataliakt/analyzer/oasis/OasisSemanticTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSemantic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="76" column="13" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gals/code/ParserConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1635">
-          <caret line="245" column="17" selection-start-line="153" selection-start-column="8" selection-end-line="245" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/oasis/OasisSintaticConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
+        <state relative-caret-position="238">
+          <caret line="148" column="20" selection-start-line="148" selection-start-column="20" selection-end-line="148" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Variable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Loop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="20" lean-forward="true" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <folding>
+            <element signature="e#125#126#0" expanded="true" />
+            <element signature="e#160#161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Definition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
+          <folding>
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#173#174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gals/reconhecedor.gals">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2907" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/nataliakt/analyzer/semantic/model/Conditional.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="40" lean-forward="true" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+          <folding>
+            <element signature="e#139#140#0" expanded="true" />
+            <element signature="e#174#175#0" expanded="true" />
           </folding>
         </state>
       </provider>

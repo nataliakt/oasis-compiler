@@ -105,12 +105,12 @@ DIV : "/"
 <TIPO>
 <BIT>
 <OBJ>
+<VALOR>
 <VAL>
 
 <BPARAM>
 <CPARAM>
 
-<VALOR>
 <EXP>
 <EXP2>
 <EXP3>
@@ -168,17 +168,17 @@ DIV : "/"
 <TIPO> ::= INT | DOUBLE | BOOLEAN | STRING | MAID;
 <BIT> ::= TRUE | FALSE;
 <OBJ> ::= MAID AP  <BPARAM> FP;
-<VAL> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | MIID | <READ>;// | AP <VALOR> FP
+<VALOR> ::= <EXP> | <EXPL>;
+<VAL> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | MIID | <READ>;
 
 <BPARAM> ::= <CPARAM> V <BPARAM> | <CPARAM> | î;
 <CPARAM> ::= <VALOR>;
 
-<VALOR> ::= <VALOR> SOMA <EXP2> | <EXP2>;
+<EXP> ::= <EXP> SOMA <EXP2> | <EXP2>;
 <EXP2> ::= <EXP2> SUB <EXP3> | <EXP3>;
 <EXP3> ::= <EXP3> DIV <EXP4> | <EXP4>;
 <EXP4> ::= <EXP4> MULT <EXP5> | <EXP5>;
-
-<EXP5> ::= AP <VALOR> FP | <VAL>;
+<EXP5> ::= AP <EXP> FP | <VAL>;
 
 <EXPL> ::= <EXPL> E <EXPL2> | <EXPL2>;
 <EXPL2> ::= <EXPL2> OU <EXPL3> | <EXPL3>;
@@ -202,11 +202,11 @@ DIV : "/"
 <THREAD> ::= MAIN | î;
 <RETORNO> ::= DP <TIPO> MIID <DEF> <VALOR> | DP <TIPO> MIID | î;
 
-<COMANDO> ::= <NVARIAVEL> NL | <EVARIAVEL> NL | <IF> | <FOR> | <WRITE> NL | <FUN> NL | NL;
+<COMANDO> ::= <NVARIAVEL> NL | <EVARIAVEL> NL | #3 <IF> | <FOR> | <WRITE> NL | <FUN> NL | NL;
 <BLOCO> ::= <COMANDO> <BLOCO> | î;
 
-<IF> ::= IF <VALOR> AC <BLOCO> FC <ELSE>;
-<ELSE> ::= ELSE AC <BLOCO> FC | î;
+<IF> ::= IF <VALOR> AC <BLOCO> #4 FC <ELSE>;
+<ELSE> ::= #5 ELSE AC <BLOCO> #6 FC | î;
 
 <FOR> ::= FOR <UVARIAVEL> DP <VALOR> DP <EVARIAVEL> AC <BLOCO> FC;
 
@@ -215,4 +215,4 @@ DIV : "/"
 <READ> ::= READ AP FP;
 <WRITE> ::= WRITE AP <VALOR> FP;
 
-<FUN> ::= <VALOR> P MIID AP FP;
+<FUN> ::= <VALOR> P MIID AP <BPARAM> FP;
