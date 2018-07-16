@@ -1,10 +1,12 @@
 package com.nataliakt.analyzer.semantic.model;
 
+import com.nataliakt.analyzer.semantic.model.expression.Expression;
+
 public class Variable<T> {
 
     private String type;
     private String name;
-    private T value;
+    private Expression<T> expression;
 
     public Variable(String type, String name) {
         this.type = type;
@@ -14,11 +16,13 @@ public class Variable<T> {
     public Variable(String type, String name, T value) {
         this.type = type;
         this.name = name;
-        this.value = value;
+        this.expression = new Expression<>(value);
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    public Variable(String type, String name, Expression expression) {
+        this.type = type;
+        this.name = name;
+        this.expression = expression;
     }
 
     public String getName() {
@@ -32,7 +36,7 @@ public class Variable<T> {
         stringBuilder.append(" ");
         stringBuilder.append(name);
         stringBuilder.append("=");
-        stringBuilder.append(value);
+        stringBuilder.append(expression);
         return stringBuilder.toString();
     }
 }

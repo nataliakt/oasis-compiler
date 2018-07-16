@@ -2,9 +2,8 @@ package com.nataliakt.analyzer.oasis;
 
 import com.nataliakt.analyzer.lexical.model.Token;
 import com.nataliakt.analyzer.semantic.SemanticAnalyzer;
-import com.nataliakt.analyzer.semantic.model.Function;
-import com.nataliakt.analyzer.semantic.model.Scope;
-import com.nataliakt.analyzer.semantic.model.Variable;
+import com.nataliakt.analyzer.semantic.model.*;
+import com.nataliakt.analyzer.semantic.model.expression.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +15,8 @@ public class OasisSemantic extends SemanticAnalyzer {
     public static final int METHOD = 2;
     public static final int IF = 3;
 
-    public Scope currentScope;
+    private int endVariable = 0;
+    private Scope currentScope;
 
     public OasisSemantic() {
         super(new OasisSintatic());
@@ -51,10 +51,11 @@ public class OasisSemantic extends SemanticAnalyzer {
                         index = -1;
                         variable = new Variable(token.getValue(), tokenId.getValue());
                     } else {
-                        variable = getVariableTipe(token.getValue(), tokenId.getValue(), tokenValue);
+                        endVariable = index + 2;
+                        variable = new Variable(token.getValue(), tokenId.getValue(), getVariableExpression(token.getValue(), tokenValue));
 
-                        if (tokens.get(index + 3).getName().equals("V")) {
-                            index += 4;
+                        if (tokens.get(endVariable).getName().equals("V")) {
+                            index = endVariable + 1;
                         } else {
                             index = -1;
                         }
@@ -108,14 +109,15 @@ public class OasisSemantic extends SemanticAnalyzer {
                     Token tokenDef = tokens.get(++index);
 
                     if (tokenDef.getName().equals("DEF")) {
+                        endVariable = index + 1;
                         Token tokenValue = tokens.get(++index);
-                        variable = getVariableTipe(type.getValue(), tokenId.getValue(), tokenValue);
-                        index++;
+                        variable = new Variable(type.getValue(), tokenId.getValue(), getVariableExpression(type.getValue(), tokenValue));
+                        index = endVariable;
                     } else {
                         variable = new Variable(type.getValue(), tokenId.getValue());
                     }
 
-                    currentScope.addVariable(variable);
+                    ((Function) currentScope).addParam(variable);
 
                     Token tokenV = tokens.get(index);
                     if (tokenV.getName().equals("V")) {
@@ -136,7 +138,7 @@ public class OasisSemantic extends SemanticAnalyzer {
                     Variable variable;
                     if (tokenDef.getName().equals("DEF")) {
                         Token tokenValue = tokens.get(++index);
-                        variable = getVariableTipe(tokenType.getValue(), tokenId.getValue(), tokenValue);
+                        variable = new Variable(tokenType.getValue(), tokenId.getValue(), getVariableExpression(tokenType.getValue(), tokenValue));
                     } else {
                         variable = new Variable(tokenType.getValue(), tokenId.getValue());
                     }
@@ -147,41 +149,158 @@ public class OasisSemantic extends SemanticAnalyzer {
                 break;
 
             case IF:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token);
+
+                Token tokenExp = tokens.get(++index);
+                Expression exp = getVariableExpression("bit", tokenExp);
+
+                Condition condition = new Condition("IF", currentScope, exp);
+                currentScope = condition;
 
                 break;
         }
     }
 
-    private Variable getVariableTipe(String type, String name, Token tokenValue) {
-        String value = tokenValue.getValue();
+    private Expression getVariableExpression(String type, Token tokenValue) {
+        List<Token> tokens = getTokens().collect(Collectors.toList());
+        int index = tokens.indexOf(tokenValue);
+        Expression expression;
+        switch (tokenValue.getName()) {
+            case "NEG":
+                if (!type.equals("bit")) {
+                    throw new WrongDefinitionException("bit", type);
+                }
+                endVariable++;
+                expression = new And(Boolean.valueOf(false));
+                expression.setExpression(getVariableExpression("bit", tokens.get(++index)));
+                return expression;
+
+            case "AP":
+                endVariable += 2;
+                return getVariableExpression(type, tokens.get(++index));
+
+            default:
+                endVariable++;
+                Token exp = tokens.get(++index);
+
+                switch (exp.getName()) {
+                    case "E":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new And((Boolean) getValueOf("bit", tokenValue));
+                        break;
+                    case "OU":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new Or((Boolean) getValueOf("bit", tokenValue));
+                        break;
+
+                    case "IGUAL":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new Equal(getValueOf(type, tokenValue));
+                        break;
+                    case "DIF":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new Different(getValueOf(type, tokenValue));
+                        break;
+                    case "MAIOR":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new Bigger(getValueOf(type, tokenValue));
+                        break;
+                    case "MENOR":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new Smaller(getValueOf(type, tokenValue));
+                        break;
+                    case "MAIORIGUAL":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new BiggerEqual(getValueOf(type, tokenValue));
+                        break;
+                    case "MENORIGUAL":
+                        if (!type.equals("bit")) {
+                            throw new WrongDefinitionException("bit", type);
+                        }
+                        expression = new SmallerEqual(getValueOf(type, tokenValue));
+                        break;
+
+                    case "SOMA":
+                        if (!type.equals("decimal") && !type.equals("integer") && !type.equals("string")) {
+                            throw new WrongDefinitionException("decimal, integer ou string", type);
+                        }
+                        expression = new Sum(getValueOf(type, tokenValue));
+                        break;
+                    case "SUB":
+                        if (!type.equals("decimal") && !type.equals("integer")) {
+                            throw new WrongDefinitionException("decimal ou integer", type);
+                        }
+                        expression = new Sub(getValueOf(type, tokenValue));
+                        break;
+                    case "MULT":
+                        if (!type.equals("decimal") && !type.equals("integer")) {
+                            throw new WrongDefinitionException("decimal ou integer", type);
+                        }
+                        expression = new Mult(getValueOf(type, tokenValue));
+                        break;
+                    case "DIV":
+                        if (!type.equals("decimal") && !type.equals("integer")) {
+                            throw new WrongDefinitionException("decimal ou integer", type);
+                        }
+                        expression = new Div(getValueOf(type, tokenValue));
+                        break;
+
+                    default:
+                        expression = new Expression(getValueOf(type, tokenValue));
+                        return expression;
+                }
+
+                endVariable++;
+                expression.setExpression(getVariableExpression(type, tokens.get(++index)));
+                return expression;
+        }
+    }
+
+    private Object getValueOf(String type, Token tokenValue) {
         String expected;
+        String value = tokenValue.getValue();
         switch (type) {
             case "integer":
                 if (tokenValue.getName().equals("INTEIRO")) {
-                    return new Variable(type, name, Integer.parseInt(value));
+                    return Integer.parseInt(value);
                 }
                 expected = "INTEIRO";
                 break;
             case "decimal":
                 if (tokenValue.getName().equals("REAL") || tokenValue.getName().equals("INTEIRO")) {
-                    return new Variable(type, name, Double.parseDouble(value));
+                    return Double.parseDouble(value);
                 }
                 expected = "REAL ou INTEIRO";
                 break;
             case "string":
                 if (tokenValue.getName().equals("TEXTO")) {
-                    return new Variable(type, name, value.substring(1, value.length() - 2));
+                    return value.substring(1, value.length() - 2);
                 }
                 expected = "TEXTO";
                 break;
             case "bit":
                 if (tokenValue.getName().equals("TRUE") || tokenValue.getName().equals("FALSE")) {
-                    return new Variable(type, name, value.equals("true"));
+                    return Boolean.valueOf(value.equals("true"));
                 }
                 expected = "TRUE ou FALSE";
                 break;
             default:
-                // TODO: classes
+                // TODO: classes e variáveis
 //                if (type.substring(0, 1).toUpperCase().equals(type.substring(0, 1))) {
 //                    return new Variable(type, )
 //                }

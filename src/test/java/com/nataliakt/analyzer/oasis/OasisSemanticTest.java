@@ -48,6 +48,17 @@ class OasisSemanticTest {
     }
 
     @Test
+    void testAttributeExpressions() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "integer numero = 1 + 3 / 5, a\n" +
+                "bit verdades = true and true\n" +
+                "}");
+
+        assertEquals("main[][Classe[integer numero=(1 + (3 / 5)), integer a=null, bit verdades=(true and true)][]]", program.toString());
+    }
+
+    @Test
     void testAttributeExixts() {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Executable executable = () -> {
@@ -78,11 +89,25 @@ class OasisSemanticTest {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Scope program = semanticAnalyzer.analyze("Classe {\n" +
                 "main inicio() {}\n" +
-                "+soma (decimal n1 = 0, decimal n2 = 0) : decimal soma {}\n" +
-                "retornoDefoult () : bit retorno = true {}\n" +
+                "+soma (decimal n1 = 0 + 5, decimal n2 = 0) : decimal soma {}\n" +
+                "retornoDefoult (string param) : bit retorno = true or true {}\n" +
                 "}");
 
-        assertEquals("main[][Classe[][inicio[][], soma[decimal n1=0.0, decimal n2=0.0, decimal soma=null][], retornoDefoult[bit retorno=true][]]]", program.toString());
+        assertEquals("main[][Classe[][inicio[][], soma[decimal n1=(0.0 + 5.0), decimal n2=0.0, decimal soma=null][], retornoDefoult[string param=null, bit retorno=(true or true)][]]]", program.toString());
+    }
+
+    @Test
+    void testIf() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "main inicio() {\n" +
+                "if true or false {}\n" +
+                "}\n" +
+                "}");
+
+        System.out.println(program);
+
+        //assertEquals("main[][Classe[][inicio[][], soma[decimal n1=(0.0 + 5.0), decimal n2=0.0, decimal soma=null][], retornoDefoult[string param=null, bit retorno=(true or true)][]]]", program.toString());
     }
 
 }
