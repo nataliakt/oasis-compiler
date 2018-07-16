@@ -72,6 +72,10 @@ public class Scope {
         return children.stream();
     }
 
+    public Stream<Variable> getVariables() {
+        return variables.stream();
+    }
+
     public class AlreadyExistingScopeNameException extends RuntimeException {
 
         AlreadyExistingScopeNameException(String name) {

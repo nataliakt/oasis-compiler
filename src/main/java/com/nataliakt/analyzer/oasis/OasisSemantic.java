@@ -155,7 +155,7 @@ public class OasisSemantic extends SemanticAnalyzer {
                 Token tokenExp = tokens.get(++index);
                 Expression exp = getVariableExpression("bit", tokenExp);
 
-                Condition condition = new Condition("IF", currentScope, exp);
+                Condition condition = new Condition(currentScope, exp);
                 currentScope = condition;
 
                 break;

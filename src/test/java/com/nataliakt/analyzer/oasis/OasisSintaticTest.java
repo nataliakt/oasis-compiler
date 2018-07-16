@@ -46,4 +46,16 @@ class OasisSintaticTest {
 
         assertEquals(true, analize, "Falha ao analisar métodos");
     }
+
+    @Test
+    void testIf() {
+        SintaticAnalyzer sintaticAnalyzer = new OasisSintatic();
+        boolean analize = sintaticAnalyzer.analyze("Classe {\n" +
+                "main inicio() {\n" +
+                "if true or false {} else {}\n" +
+                "}\n" +
+                "}");
+
+        assertEquals(true, analize, "Falha ao analisar if");
+    }
 }

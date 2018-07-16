@@ -43,6 +43,8 @@ TEXTO : {AS} | {AD} // TEXTO
 NL : {NL}* // NOVA LINHA
 
 // COMANDOS
+MY = MIID : "my"
+
 WRITE = MIID : "write"
 READ = MIID : "read"
 
@@ -115,13 +117,17 @@ DIV : "/"
 <EXP2>
 <EXP3>
 <EXP4>
-<EXP5>
 
 <EXPL>
 <EXPL2>
 <EXPL3>
 <EXPL4>
 <EXPL5>
+<EXPL6>
+<EXPL7>
+<EXPL8>
+<EXPL9>
+<EXPL10>
 
 <CNVARIAVEL>
 <BNVARIAVEL>
@@ -167,9 +173,9 @@ DIV : "/"
 <DEF> ::= DEF | DEFRET;
 <TIPO> ::= INT | DOUBLE | BOOLEAN | STRING | MAID;
 <BIT> ::= TRUE | FALSE;
-<OBJ> ::= MAID AP  <BPARAM> FP;
-<VALOR> ::= <EXP> | <EXPL>;
-<VAL> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | MIID | <READ>;
+<OBJ> ::= MAID AP  <BPARAM> FP | MY | MIID;
+<VALOR> ::= <EXP>;
+<VAL> ::= INTEIRO | REAL | <BIT> | TEXTO | <OBJ> | <FUN>;
 
 <BPARAM> ::= <CPARAM> V <BPARAM> | <CPARAM> | î;
 <CPARAM> ::= <VALOR>;
@@ -177,14 +183,18 @@ DIV : "/"
 <EXP> ::= <EXP> SOMA <EXP2> | <EXP2>;
 <EXP2> ::= <EXP2> SUB <EXP3> | <EXP3>;
 <EXP3> ::= <EXP3> DIV <EXP4> | <EXP4>;
-<EXP4> ::= <EXP4> MULT <EXP5> | <EXP5>;
-<EXP5> ::= AP <EXP> FP | <VAL>;
+<EXP4> ::= <EXP4> MULT <EXPL> | <EXPL>;
 
 <EXPL> ::= <EXPL> E <EXPL2> | <EXPL2>;
 <EXPL2> ::= <EXPL2> OU <EXPL3> | <EXPL3>;
 <EXPL3> ::= <EXPL3> DIF <EXPL4> | <EXPL4>;
 <EXPL4> ::= <EXPL4> IGUAL <EXPL5> | <EXPL5>;
-<EXPL5> ::= AP <EXPL> FP | <VAL>;
+<EXPL5> ::= <EXPL5> MAIOR <EXPL6> | <EXPL6>;
+<EXPL6> ::= <EXPL6> MENOR <EXPL7> | <EXPL7>;
+<EXPL7> ::= <EXPL7> MAIORIGUAL <EXPL8> | <EXPL8>;
+<EXPL8> ::= <EXPL8> MENORIGUAL <EXPL9> | <EXPL9>;
+<EXPL9> ::= NEG <EXPL10> | <EXPL10>;
+<EXPL10> ::= AP <EXP> FP | <VAL>;
 
 <CNVARIAVEL> ::=  V <EVARIAVEL> | V MIID;
 <BNVARIAVEL> ::= <CNVARIAVEL> <BNVARIAVEL> | î;
@@ -205,8 +215,8 @@ DIV : "/"
 <COMANDO> ::= <NVARIAVEL> NL | <EVARIAVEL> NL | #3 <IF> | <FOR> | <WRITE> NL | <FUN> NL | NL;
 <BLOCO> ::= <COMANDO> <BLOCO> | î;
 
-<IF> ::= IF <VALOR> AC <BLOCO> #4 FC <ELSE>;
-<ELSE> ::= #5 ELSE AC <BLOCO> #6 FC | î;
+<IF> ::= IF <VALOR> AC <BLOCO> FC <ELSE>;
+<ELSE> ::= ELSE AC <BLOCO> FC | î;
 
 <FOR> ::= FOR <UVARIAVEL> DP <VALOR> DP <EVARIAVEL> AC <BLOCO> FC;
 
@@ -215,4 +225,4 @@ DIV : "/"
 <READ> ::= READ AP FP;
 <WRITE> ::= WRITE AP <VALOR> FP;
 
-<FUN> ::= <VALOR> P MIID AP <BPARAM> FP;
+<FUN> ::= <OBJ> P MIID AP <BPARAM> FP | MIID AP <BPARAM> FP | <READ>;
