@@ -34,6 +34,10 @@ public class Variable<T> {
         return type;
     }
 
+    public Expression getExpression() {
+        return expression;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

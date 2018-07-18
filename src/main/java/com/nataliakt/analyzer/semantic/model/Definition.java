@@ -29,7 +29,6 @@ public class Definition extends Scope {
         return expression;
     }
 
-
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

@@ -19,22 +19,15 @@ public interface OasisSintaticConstants {
 
         try {
             FileReader fileReader = new FileReader(fileName);
-
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-
             String[] lines = bufferedReader.lines().toArray(String[]::new);
-
             int countLines = lines.length;
-
             String firstLine = lines[0];
             int countColumns = firstLine.replaceAll("[^\\{]", "").length() - 1;
-
             int[][][] table = new int[countLines][countColumns][2];
-
             for (int li = 0; li < lines.length; li++) {
                 int[][] columns = new int[countColumns][2];
-
                 String[] columnsString = lines[li].split("\\{");
                 for (int i = 2; i < columnsString.length; i++) {
                     String column = columnsString[i];
@@ -44,13 +37,10 @@ public interface OasisSintaticConstants {
                     int value = Integer.parseInt(tuple[1]);
                     columns[i - 2] = new int[] {action, value};
                 }
-
                 table[li] = columns;
             };
-
             // Always close files.
             bufferedReader.close();
-
             return table;
         } catch (Exception e) {
             e.printStackTrace();

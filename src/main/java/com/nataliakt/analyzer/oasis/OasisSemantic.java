@@ -61,7 +61,6 @@ public class OasisSemantic extends SemanticAnalyzer {
             addAction(nextToken);
         }
 
-
     }
 
     private void programScope(Token token) {
