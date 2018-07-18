@@ -21,7 +21,7 @@ public class OasisSintatic extends SintaticAnalyzer {
     private static States states = new States(s, PRODUCTIONS);
 
     public OasisSintatic() {
-        super(states, new OasisLexical(), FIRST_SEMANTIC_ACTION);
+        super(states, new OasisLexical());
 
         s.clear();
 

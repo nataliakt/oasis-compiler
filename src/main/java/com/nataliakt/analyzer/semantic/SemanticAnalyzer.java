@@ -14,8 +14,6 @@ public abstract class SemanticAnalyzer {
 
     public SemanticAnalyzer(SintaticAnalyzer sintaticAnalyzer) {
         this.sintaticAnalyzer = sintaticAnalyzer;
-        this.sintaticAnalyzer.setSemanticAnalyzer(this);
-        this.program = new Scope("main");
     }
 
     /**
@@ -32,10 +30,12 @@ public abstract class SemanticAnalyzer {
         boolean sintatic = sintaticAnalyzer.analyze(text);
         assert sintatic;
 
+        addAction(getTokens().findFirst().get());
+
         return program;
     }
 
-    public abstract void addAction(int action, Token token);
+    public abstract void addAction(Token token);
 
     public Scope getProgram() {
         return program;
@@ -43,5 +43,13 @@ public abstract class SemanticAnalyzer {
 
     public Stream<Token> getTokens() {
         return sintaticAnalyzer.getTokens();
+    }
+
+    public static class SemanticException extends RuntimeException
+    {
+        public SemanticException(String message)
+        {
+            super(message);
+        }
     }
 }

@@ -34,6 +34,10 @@ public class Stack
 		return pilha.get(pilha.size() - 1);
 	}
 
+	public int count() {
+		return pilha.size();
+	}
+
 	@Override
 	public String toString()
 	{

@@ -90,10 +90,10 @@ class OasisSemanticTest {
         Scope program = semanticAnalyzer.analyze("Classe {\n" +
                 "main inicio() {}\n" +
                 "+soma (decimal n1 = 0 + 5, decimal n2 = 0) : decimal soma {}\n" +
-                "retornoDefoult (string param) : bit retorno = true or true {}\n" +
+                "retornoDefault (string param) : bit retorno = true or true {}\n" +
                 "}");
 
-        assertEquals("main[][Classe[][inicio[][], soma[decimal n1=(0.0 + 5.0), decimal n2=0.0, decimal soma=null][], retornoDefoult[string param=null, bit retorno=(true or true)][]]]", program.toString());
+        assertEquals("main[][Classe[][inicio[][], soma[decimal n1=(0.0 + 5.0), decimal n2=0.0, decimal soma=null][], retornoDefault[string param=null, bit retorno=(true or true)][]]]", program.toString());
     }
 
     @Test
@@ -101,11 +101,11 @@ class OasisSemanticTest {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Scope program = semanticAnalyzer.analyze("Classe {\n" +
                 "main inicio() {\n" +
-                "if true or false {} else {}\n" +
+                "if ^true {} else {}\n" +
                 "}\n" +
                 "}");
 
-        assertEquals("main[][Classe[][inicio[][<IF (true or false)>[][]]]]", program.toString());
+        assertEquals("main[][Classe[][inicio[][<IF (false and true)>[][], <ELSE null>[][]]]]", program.toString());
     }
 
 }

@@ -5,8 +5,6 @@ import java.io.FileReader;
 
 public interface OasisSintaticConstants {
 
-    int FIRST_SEMANTIC_ACTION = 95;
-
     int SHIFT = 0;
     int REDUCE = 1;
     int ACTION = 2;
@@ -84,9 +82,9 @@ public interface OasisSintaticConstants {
                     { 45, 2 },
                     { 45, 1 },
                     { 46, 1 },
-                    { 47, 5 },
-                    { 48, 2 },
-                    { 48, 2 },
+                    { 47, 4 },
+                    { 48, 1 },
+                    { 48, 1 },
                     { 48, 1 },
                     { 49, 2 },
                     { 49, 0 },
@@ -168,7 +166,7 @@ public interface OasisSintaticConstants {
                     { 85, 0 },
                     { 86, 2 },
                     { 86, 2 },
-                    { 86, 2 },
+                    { 86, 1 },
                     { 86, 1 },
                     { 86, 2 },
                     { 86, 2 },
@@ -176,6 +174,7 @@ public interface OasisSintaticConstants {
                     { 87, 2 },
                     { 87, 0 },
                     { 88, 6 },
+                    { 89, 6 },
                     { 89, 4 },
                     { 89, 0 },
                     { 90, 9 },

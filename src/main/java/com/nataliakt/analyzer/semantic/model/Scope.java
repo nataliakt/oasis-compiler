@@ -29,9 +29,11 @@ public class Scope {
     }
 
     private boolean valideChildren(String scopeName) {
-        boolean childrenExists = this.children.stream().anyMatch(child -> scopeName.equals(child.name));
-        if (childrenExists) {
-            throw new AlreadyExistingScopeNameException(scopeName);
+        if (father == null || father.father == null) {
+            boolean childrenExists = this.children.stream().anyMatch(child -> scopeName.equals(child.name));
+            if (childrenExists) {
+                throw new AlreadyExistingScopeNameException(scopeName);
+            }
         }
         return true;
     }
@@ -58,6 +60,13 @@ public class Scope {
             return this;
         }
         return father.getProgramChild();
+    }
+
+    public Scope getFirstFather(Class instanceOf) {
+        if (this.getClass().equals(instanceOf)) {
+            return this;
+        }
+        return father.getFirstFather(instanceOf);
     }
 
     public String getName() {
