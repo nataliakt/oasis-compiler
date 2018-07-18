@@ -1,30 +1,21 @@
 package com.nataliakt.analyzer.semantic.model.expression;
 
-public class Expression<T> {
+public abstract class Expression<T1, T2> {
 
-    private T value;
-    private Expression expression;
+    private T1 value1;
+    private T2 value2;
 
-    public Expression(T value) {
-        this.value = value;
+    public Expression(T1 value1, T2 value2) {
+        this.value1 = value1;
+        this.value2 = value2;
     }
 
-    public T getValue() {
-        return value;
+    public T1 getValue1() {
+        return value1;
     }
 
-    public void setExpression(Expression expression) {
-        this.expression = expression;
+    public T2 getValue2() {
+        return value2;
     }
 
-    public Expression getExpression() {
-        return expression;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(value);
-        return stringBuilder.toString();
-    }
 }

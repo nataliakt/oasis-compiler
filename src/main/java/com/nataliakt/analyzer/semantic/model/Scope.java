@@ -3,6 +3,7 @@ package com.nataliakt.analyzer.semantic.model;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Scope {
@@ -67,6 +68,14 @@ public class Scope {
             return this;
         }
         return father.getFirstFather(instanceOf);
+    }
+
+    public Scope getLastBrother(Class instanceOf) {
+        List<Scope> instances = children.stream().filter(child -> child.getClass().equals(instanceOf)).collect(Collectors.toList());
+        if (instances.size() > 0) {
+            return instances.get(instances.size() - 1);
+        }
+        return null;
     }
 
     public String getName() {

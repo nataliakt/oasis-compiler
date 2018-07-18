@@ -51,11 +51,11 @@ class OasisSemanticTest {
     void testAttributeExpressions() {
         SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
         Scope program = semanticAnalyzer.analyze("Classe {\n" +
-                "integer numero = 1 + 3 / 5, a\n" +
+                "integer numero = 1 + 1, a\n" +
                 "bit verdades = true and true\n" +
                 "}");
 
-        assertEquals("main[][Classe[integer numero=(1 + (3 / 5)), integer a=null, bit verdades=(true and true)][]]", program.toString());
+        assertEquals("main[][Classe[integer numero=(1 + 1), integer a=null, bit verdades=(true and true)][]]", program.toString());
     }
 
     @Test
@@ -105,7 +105,9 @@ class OasisSemanticTest {
                 "}\n" +
                 "}");
 
-        assertEquals("main[][Classe[][inicio[][<IF (false and true)>[][], <ELSE null>[][]]]]", program.toString());
+        System.out.println(program);
+
+        assertEquals("main[][Classe[][inicio[][<IF ^(true)>[][], <ELSE null>[][]]]]", program.toString());
     }
 
 }

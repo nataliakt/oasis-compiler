@@ -5,6 +5,7 @@ import com.nataliakt.analyzer.semantic.SemanticAnalyzer;
 import com.nataliakt.analyzer.semantic.model.*;
 import com.nataliakt.analyzer.semantic.model.expression.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,48 +51,15 @@ public class OasisSemantic extends SemanticAnalyzer {
             programScope(token);
         } else if (currentScope.getFather() == getProgram()) {
             classScope(token);
+        } else {
+            methodScope(token);
         }
 
         if (nextToken != null) {
             addAction(nextToken);
         }
 
-//        switch (token.getName()) {
-//            case IF:
-//                tokens = getTokens().collect(Collectors.toList());
-//                index = tokens.indexOf(token);
-//
-//                Token tokenExp = tokens.get(++index);
-//                Expression exp = getVariableExpression("bit", tokenExp);
-//
-//                Condition condition = new Condition(currentScope, exp);
-//                currentScope = condition;
-//
-//                break;
-//
-//            case ELSE:
-//                tokens = getTokens().collect(Collectors.toList());
-//                index = tokens.indexOf(token);
-//
-//                Condition scopeIf = (Condition) currentScope.getFirstFather(Condition.class);
-//
-//                if (token.getName().equals("ELSE")) {
-//                    Token tokenVar = tokens.get(++index);
-//                    if (tokenVar.getName().equals("AC")) {
-//                        Condition elseW = new Condition("ELSE", scopeIf);
-//                        currentScope = elseW;
-//                    } else {
-//                        Expression var = getVariableExpression("bit", tokenVar);
-//                        Condition elseIf = new Condition("ELSE IF", scopeIf, var);
-//                        currentScope = elseIf;
-//                    }
-//                } else {
-//                    currentScope = scopeIf.getFather();
-//                }
-//
-//                break;
-//
-//        }
+
     }
 
     private void programScope(Token token) {
@@ -134,12 +102,13 @@ public class OasisSemantic extends SemanticAnalyzer {
                     } else {
                         endVariable = index + 2;
                         variable = new Variable(token.getValue(), tokenId.getValue(), getVariableExpression(token.getValue(), tokenValue));
+                        index = endVariable;
 
-                        Token tokenV = tokens.get(endVariable);
+                        Token tokenV = tokens.get(index);
                         if (tokenV.getName().equals("V")) {
-                            index = endVariable + 1;
+                            index++;
                         } else {
-                            nextToken = tokenV;
+                            nextToken = tokens.get(endVariable);
                             index = -1;
                         }
                     }
@@ -190,7 +159,7 @@ public class OasisSemantic extends SemanticAnalyzer {
                 // Busca os atributos
                 Token type = tokens.get(index);
                 nextToken = type;
-                while (!type.getName().equals("FP")) {
+                while (!type.getName().equals("FP") && tokens.size() > index + 1) {
                     Variable variable = null;
                     Token tokenId = tokens.get(++index);
                     Token tokenDef = tokens.get(++index);
@@ -213,6 +182,10 @@ public class OasisSemantic extends SemanticAnalyzer {
                         index++;
                     }
                     type = tokens.get(index);
+                }
+
+                if (tokens.size() <= index + 1) {
+                    return;
                 }
 
                 // Pula os PF e DP
@@ -243,18 +216,61 @@ public class OasisSemantic extends SemanticAnalyzer {
         }
     }
 
+    private void methodScope(Token token) {
+        List<Token> tokens;
+        int index;
+
+        switch (token.getName()) {
+            case IF:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token);
+
+                Token tokenExp = tokens.get(++index);
+                endVariable = index;
+                Expression exp = getVariableExpression("bit", tokenExp);
+                nextToken = tokens.get(endVariable);
+
+                Condition condition = new Condition(currentScope, exp);
+                currentScope = condition;
+
+                break;
+
+            case ELSE:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token);
+
+                Condition scopeIf = (Condition) currentScope.getLastBrother(Condition.class);
+
+                Token tokenVar = tokens.get(++index);
+                if (tokenVar.getName().equals("AC")) {
+                    Condition elseW = new Condition("ELSE", scopeIf);
+                    nextToken = tokens.get(index);
+                    currentScope = elseW;
+                } else {
+                    endVariable = index;
+                    Expression var = getVariableExpression("bit", tokenVar);
+                    nextToken = tokens.get(endVariable);
+                    Condition elseIf = new Condition("ELSE IF", scopeIf, var);
+                    currentScope = elseIf;
+                }
+
+                break;
+
+        }
+    }
+
     private Expression getVariableExpression(String type, Token tokenValue) {
         List<Token> tokens = getTokens().collect(Collectors.toList());
         int index = tokens.indexOf(tokenValue);
         Expression expression;
+
         switch (tokenValue.getName()) {
             case "NEG":
                 if (!type.equals("bit")) {
                     throw new WrongDefinitionException("bit", type);
                 }
                 endVariable++;
-                expression = new And(Boolean.valueOf(false));
-                expression.setExpression(getVariableExpression("bit", tokens.get(++index)));
+                expression = new Not(getValueOf("bit", tokens.get(++index)));
                 return expression;
 
             case "AP":
@@ -264,54 +280,53 @@ public class OasisSemantic extends SemanticAnalyzer {
             default:
                 endVariable++;
                 Token exp = tokens.get(++index);
+                Token value2 = tokens.get(++index);
 
                 switch (exp.getName()) {
                     case "E":
-                        expression = new And((Boolean) getValueOf(tokenValue));
+                        expression = new And(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "OU":
-                        expression = new Or((Boolean) getValueOf(tokenValue));
+                        expression = new Or(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
 
                     case "IGUAL":
-                        expression = new Equal(getValueOf(tokenValue));
+                        expression = new Equal(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "DIF":
-                        expression = new Different(getValueOf(tokenValue));
+                        expression = new Different(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "MAIOR":
-                        expression = new Bigger(getValueOf(tokenValue));
+                        expression = new Bigger(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "MENOR":
-                        expression = new Smaller(getValueOf(tokenValue));
+                        expression = new Smaller(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "MAIORIGUAL":
-                        expression = new BiggerEqual(getValueOf(tokenValue));
+                        expression = new BiggerEqual(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "MENORIGUAL":
-                        expression = new SmallerEqual(getValueOf(tokenValue));
+                        expression = new SmallerEqual(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
 
                     case "SOMA":
-                        expression = new Sum(getValueOf(tokenValue));
+                        expression = new Sum(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "SUB":
-                        expression = new Sub(getValueOf(tokenValue));
+                        expression = new Sub(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "MULT":
-                        expression = new Mult(getValueOf(tokenValue));
+                        expression = new Mult(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
                     case "DIV":
-                        expression = new Div(getValueOf(tokenValue));
+                        expression = new Div(getValueOf(type, tokenValue), getValueOf(type, value2));
                         break;
 
                     default:
-                        expression = new Expression(getValueOf(tokenValue));
-                        return expression;
+                        return new Value(getValueOf(type, tokenValue));
                 }
 
-                endVariable++;
-                expression.setExpression(getVariableExpression(type, tokens.get(++index)));
+                endVariable += 2;
                 return expression;
         }
     }
