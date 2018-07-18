@@ -21,6 +21,8 @@ public class OasisSemantic extends SemanticAnalyzer {
     public static final String ENCAP = "ENCAP";
     public static final String IF = "IF";
     public static final String ELSE = "ELSE";
+    public static final String WHILE = "WHILE";
+    public static final String FOR = "FOR";
     public static final String FC = "FC";
 
     private int endVariable = 0;
@@ -255,6 +257,134 @@ public class OasisSemantic extends SemanticAnalyzer {
                 }
 
                 break;
+            case WHILE:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token);
+
+                Token whileTokenExp = tokens.get(++index);
+                endVariable = index;
+                Expression whileExp = getVariableExpression("bit", whileTokenExp);
+                nextToken = tokens.get(endVariable);
+
+                Loop loopWhile = new Loop(currentScope, whileExp);
+                currentScope = loopWhile;
+
+                break;
+            case FOR:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token);
+
+                Token tokenForType = tokens.get(++index);
+                Token tokenForId = tokens.get(++index);
+                index++; // Pula o =
+                Token tokenForVar = tokens.get(++index);
+
+                endVariable = index;
+                Expression forDefExp = getVariableExpression(tokenForType.getValue(), tokenForVar);
+                Variable variableFor = new Variable(tokenForType.getValue(), tokenForId.getValue());
+                index = endVariable;
+                currentScope.addVariable(variableFor);
+                new Definition(variableFor, forDefExp, currentScope);
+
+                // Pula os :
+                index++;
+
+                endVariable = index;
+                Expression forExp = getVariableExpression("bit", tokens.get(index));
+                index = endVariable;
+
+                Loop loopFor = new Loop("FOR", currentScope, forExp);
+                currentScope = loopFor;
+
+                // Pula os :
+                index++;
+
+                Token tokenForIncrement = tokens.get(index);
+                Variable variableForIncrement;
+                try {
+                    variableForIncrement = currentScope.getFirstVariable(tokenForIncrement.getValue());
+                } catch (Exception e) {
+                    throw new UndefinedVariableException(token.getValue());
+                }
+
+                index++; // Pula o =
+                index++;
+
+                endVariable = index;
+                Expression forExpIncrement = getVariableExpression(variableForIncrement.getType(), tokens.get(index));
+                index = endVariable;
+
+                Definition defIncrement = new Definition(variableForIncrement, forExpIncrement);
+
+                loopFor.setIncrement(defIncrement);
+
+                nextToken = tokens.get(endVariable);
+                break;
+
+            case MIID:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token) + 2;
+
+                Variable variableExists;
+
+                try {
+                    variableExists = currentScope.getFirstVariable(token.getValue());
+                } catch (Exception e) {
+                    throw new UndefinedVariableException(token.getValue());
+                }
+
+                Token tokenDefExp = tokens.get(index);
+                endVariable = index;
+                Expression defExp = getVariableExpression(variableExists.getType(), tokenDefExp);
+                nextToken = tokens.get(endVariable);
+
+                new Definition(variableExists, defExp, currentScope);
+
+                break;
+
+            case INT:
+            case DOUBLE:
+            case BOOLEAN:
+            case STRING:
+                tokens = getTokens().collect(Collectors.toList());
+                index = tokens.indexOf(token) + 1;
+                do {
+                    Token tokenId = tokens.get(index);
+                    Token tokenDef = tokens.get(index + 1);
+                    Token tokenValue = tokens.get(index + 2);
+                    Variable variable = null;
+                    Expression expression = null;
+
+                    if (tokenDef.getName().equals("V")) {
+                        index += 2;
+                        variable = new Variable(token.getValue(), tokenId.getValue());
+
+                    } else if (tokenDef.getName().equals("NL")) {
+                        nextToken = tokenDef;
+                        index = -1;
+                        variable = new Variable(token.getValue(), tokenId.getValue());
+                    } else {
+                        endVariable = index + 2;
+                        variable = new Variable(token.getValue(), tokenId.getValue());
+                        expression = getVariableExpression(token.getValue(), tokenValue);
+                        index = endVariable;
+
+                        Token tokenV = tokens.get(index);
+                        if (tokenV.getName().equals("V")) {
+                            index++;
+                        } else {
+                            nextToken = tokens.get(endVariable);
+                            index = -1;
+                        }
+                    }
+
+                    if (variable != null) {
+                        currentScope.addVariable(variable);
+                        new Definition(variable, expression, currentScope);
+                    }
+                } while (index != -1);
+
+                break;
 
         }
     }
@@ -284,29 +414,29 @@ public class OasisSemantic extends SemanticAnalyzer {
 
                 switch (exp.getName()) {
                     case "E":
-                        expression = new And(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new And(getValueOf("bit", tokenValue), getValueOf("bit", value2));
                         break;
                     case "OU":
-                        expression = new Or(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new Or(getValueOf("bit", tokenValue), getValueOf("bit", value2));
                         break;
 
                     case "IGUAL":
-                        expression = new Equal(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new Equal(getValueOf(tokenValue), getValueOf(value2));
                         break;
                     case "DIF":
-                        expression = new Different(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new Different(getValueOf(tokenValue), getValueOf(value2));
                         break;
                     case "MAIOR":
-                        expression = new Bigger(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new Bigger(getValueOf(tokenValue), getValueOf(value2));
                         break;
                     case "MENOR":
-                        expression = new Smaller(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new Smaller(getValueOf(tokenValue), getValueOf(value2));
                         break;
                     case "MAIORIGUAL":
-                        expression = new BiggerEqual(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new BiggerEqual(getValueOf(tokenValue), getValueOf(value2));
                         break;
                     case "MENORIGUAL":
-                        expression = new SmallerEqual(getValueOf(type, tokenValue), getValueOf(type, value2));
+                        expression = new SmallerEqual(getValueOf(tokenValue), getValueOf(value2));
                         break;
 
                     case "SOMA":
@@ -336,7 +466,7 @@ public class OasisSemantic extends SemanticAnalyzer {
     }
 
     private Object getValueOf(String type, Token tokenValue) {
-        String expected;
+        String expected = "";
         String value = tokenValue.getValue();
         switch (type) {
             case "integer":
@@ -369,11 +499,16 @@ public class OasisSemantic extends SemanticAnalyzer {
                 expected = "TRUE ou FALSE";
                 break;
             default:
-                // TODO: classes e variáveis
-//                if (type.substring(0, 1).toUpperCase().equals(type.substring(0, 1))) {
-//                    return new Variable(type, )
-//                }
-                return null;
+        }
+
+        if (tokenValue.getName().equals("MIID")) {
+            Variable variable;
+            try {
+                variable = currentScope.getFirstVariable(tokenValue.getValue());
+            } catch (Exception e) {
+                throw new UndefinedVariableException(tokenValue.getValue());
+            }
+            return variable;
         }
 
         throw new WrongDefinitionException(expected, tokenValue.getName());
@@ -383,6 +518,14 @@ public class OasisSemantic extends SemanticAnalyzer {
 
         WrongDefinitionException(String expected, String current) {
             super("Declaração de variável incorreta. Era esperado " + expected + " e foi passado " + current);
+        }
+
+    }
+
+    class UndefinedVariableException extends RuntimeException {
+
+        UndefinedVariableException(String variableName) {
+            super("A variável " + variableName + " deve ser declarada antes.");
         }
 
     }

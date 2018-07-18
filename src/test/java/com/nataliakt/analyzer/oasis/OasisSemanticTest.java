@@ -105,9 +105,69 @@ class OasisSemanticTest {
                 "}\n" +
                 "}");
 
-        System.out.println(program);
-
         assertEquals("main[][Classe[][inicio[][<IF ^(true)>[][], <ELSE null>[][]]]]", program.toString());
+    }
+
+    @Test
+    void testWhile() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "main inicio() {\n" +
+                "while true {}\n" +
+                "}\n" +
+                "}");
+
+        assertEquals("main[][Classe[][inicio[][<WHILE true:null>[][]]]]", program.toString());
+    }
+
+    @Test
+    void testDefinition() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "integer var\n"+
+                "main inicio() {\n" +
+                "var = 1\n" +
+                "}\n" +
+                "}");
+
+        assertEquals("main[][Classe[integer var=null][inicio[][var = 1]]]", program.toString());
+    }
+
+    @Test
+    void testDefinitionVariable() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "integer var, var2 = 1\n"+
+                "main inicio() {\n" +
+                "var = var2\n" +
+                "}\n" +
+                "}");
+
+        assertEquals("main[][Classe[integer var=null, integer var2=1][inicio[][var = integer var2=1]]]", program.toString());
+    }
+
+    @Test
+    void testNewDefinition() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "main inicio() {\n" +
+                "integer var = 0\n" +
+                "}\n" +
+                "}");
+
+        assertEquals("main[][Classe[][inicio[integer var=null][var = 0]]]", program.toString());
+    }
+
+    @Test
+    void testFor() {
+        SemanticAnalyzer semanticAnalyzer = new OasisSemantic();
+        Scope program = semanticAnalyzer.analyze("Classe {\n" +
+                "main inicio() {\n" +
+                "for integer i = 0: i < 10: i=i+1{}\n" +
+                "}\n" +
+                "}");
+
+        assertEquals("main[][Classe[][inicio[integer i=null][i = 0, <FOR (integer i=null < 10):i = (integer i=null + 1)>[][]]]]", program.toString());
     }
 
 }

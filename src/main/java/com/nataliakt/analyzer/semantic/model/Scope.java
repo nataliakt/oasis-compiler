@@ -70,6 +70,14 @@ public class Scope {
         return father.getFirstFather(instanceOf);
     }
 
+    public Variable getFirstVariable(String name) {
+        try {
+            Variable var = variables.stream().filter(vari -> vari.getName().equals(name)).findFirst().get();
+            return var;
+        } catch (Exception e) {}
+        return father.getFirstVariable(name);
+    }
+
     public Scope getLastBrother(Class instanceOf) {
         List<Scope> instances = children.stream().filter(child -> child.getClass().equals(instanceOf)).collect(Collectors.toList());
         if (instances.size() > 0) {
